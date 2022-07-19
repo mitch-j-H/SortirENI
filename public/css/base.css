@@ -1,0 +1,97 @@
+a{
+    text-decoration: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    align-self: flex-start;
+    margin-left: 15%;
+}
+
+h1 {
+    font-family: 'Asul', sans-serif;
+    font-family: 'PT Sans Caption', sans-serif;
+    color: #e0e0e0;
+    align-self: flex-end;
+}
+
+header {
+    background-color: #26408B;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 55vh;
+    padding: 2vh;
+}
+
+footer {
+    height: 10vh;
+    background-color: #26408B;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #e0e0e0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+input, textarea {
+    box-sizing: border-box;
+    max-width: 150px;
+    min-width: 50%;
+}
+
+.input-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header-logo h3 {
+    margin: 0;
+    color: #f1f2f3;
+}
+
+.logo {
+    height: 15vh;
+    padding: 0;
+}
+
+.page-title {
+    max-width: 10em;
+    margin-right: 2em;
+}
+
+
+/*TODO make desktop version */
