@@ -1,0 +1,11 @@
+<nav>
+    <ul>
+        {% if is_granted("ROLE_ADMIN")%}
+            <li><a href="{{ path('') }}" tittle="Ville">Ville</a></li>
+            <li><a href="{{ path('') }}" tittle="Campus">Campus</a></li>
+        {% endif %}
+        <li><a href="{{ path('main_home') }}" tittle="Accueil">Accueil</a></li>
+        <li><a href="{{ path('main_test') }}" title="monProfile">Mon Profile</a></li>
+        <li><a href="{{ path('serie_list') }}" tittle="seDeconnecter">Se déconnecter</a></li>
+    </ul>
+</nav>

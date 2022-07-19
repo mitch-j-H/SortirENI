@@ -25,6 +25,9 @@
                     <h1>{% block title %} Welcome {% endblock %}</h1>
                 </section>
         </header>
+        {% if app.user %}
+        {% include('inc/nav.html.twig') %}
+        {% endif %}
         <main>
                 {% block body %}
                 {% endblock %}
