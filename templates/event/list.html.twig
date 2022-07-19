@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  <h1>Liste des sorties : </h1>
+
+  {% for event in events %}
+  <article>
+    <a href="{{ path('event_detail', {'id': event.id}) }}" title ="voir le détail de la sortie"> {{ event.name }} </a>
+  </article>
+  {% endfor %}
+
+{% endblock %}
