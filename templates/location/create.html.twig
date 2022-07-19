@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+    <div>
+
+        {{ form_start(locationForm) }}
+        {{ form_widget(locationForm) }}
+        <button>Ajouter un lieu</button>
+        {{ form_end(locationForm) }}
+
+  </div>
+
+{% endblock %}
