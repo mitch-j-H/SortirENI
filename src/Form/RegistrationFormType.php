@@ -22,6 +22,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
 
+            ->add('userName')
             ->add('surname')
             ->add('firstName')
             ->add('email')
