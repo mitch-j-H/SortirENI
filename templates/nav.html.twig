@@ -1,0 +1,14 @@
+<nav>
+    <ul>
+        <li><a href="{{path('main_home')}}" title="Home">Home</a></li>
+
+        {% if app.user %}
+            <li>Welcome {{ app.user.userName }}</li>
+            <li><a href="{{path('participant_profile')}}"  title="Profile">My profile</a></li>
+            <li><a href="{{path('participant_logout')}}"  title="Logout">Logout</a></li>
+
+        {% else %}
+            <li><a href="{{path('participant_login')}}"  title="Login">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
