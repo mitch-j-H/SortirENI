@@ -12,10 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-#[Route(path: '/participant', name: 'participant_')]
+//testing to make this the default acces page before touching permissions
+//#[Route(path: '/participant', name: 'participant_')]
+#[Route(/*path: '/participant',*/ name: 'participant_')]
 class ParticipantController extends AbstractController
 {
-    #[Route(path: '/login', name: 'login')]
+    //testing default access page
+//    #[Route(path: '/login', name: 'login')]
+    #[Route(path: '/', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // if ($this->getUser()) {
