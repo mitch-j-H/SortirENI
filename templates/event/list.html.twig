@@ -1,12 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
+{% block body %}
   <h1>Liste des sorties : </h1>
 
+
+<Container>
+
+  <table>
+    <thead>
+    <td>Nom de la sortie</td>
+    <td>Date de la sortie</td>
+    <td>Cloture</td>
+    <td>Inscrits/Places</td>
+    <td>Etat</td>
+    <td>Inscrit</td>
+    <td>Organisateur</td>
+    <td>Actions</td>
+    </thead>
+    <tbody>
   {% for event in events %}
-  <article>
-    <a href="{{ path('event_detail', {'id': event.id}) }}" title ="voir le détail de la sortie"> {{ event.name }} </a>
-  </article>
+    <tr>
+    <td>{{ event.name }}</td>
+    <td>{{ event.startsAt | date }}</td>
+    <td>{{ event.cutOffDate | date }}</td>
+    <td>{{ event.eventAttendence | length }}/{{ event.capacity }}</td>
+    <td>{{ event.status }}</td>
+      <td></td>
+      <td>{{ event.organiser.username }}</td>
+      <td>
+        {% if app.user.id == event.organiser.id %}
+          <a href="{{ path('event_detail', {'id': event.id}) }}" title ="modifier la sortie"> Modifier </a> - Supprimer
+        {% endif %}
+        {% if app.user.id != event.organiser.id%}
+        <a href="{{ path('event_detail', {'id': event.id}) }}" title ="voir le détail de la sortie"> Afficher </a> - S'incrire/Se désister
+          {% endif %}
+      </td>
+    </tr>
   {% endfor %}
+    </tbody>
+
+  </table>
+</Container>
 
 {% endblock %}
