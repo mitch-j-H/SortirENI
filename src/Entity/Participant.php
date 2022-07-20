@@ -47,7 +47,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'participants')]
+    #[ORM\ManyToOne(targetEntity: Campus::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?Campus $campus = null;
 

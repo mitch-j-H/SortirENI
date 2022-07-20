@@ -11,11 +11,15 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ProfileType extends AbstractType
 {
@@ -25,13 +29,70 @@ class ProfileType extends AbstractType
         $builder
 
             ->add('userName', TextType::class, [
-                'label' => 'UserName'
+                'label' => 'UserName',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlength' => '2',
+                    'maxlength' => '50',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a user name',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Your user name should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 50,
+                    ]),
+                ]
             ])
             ->add('surname', TextType::class, [
-                'label' => 'Surname'
+                'label' => 'Surname',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlength' => '2',
+                    'maxlength' => '50',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a surname',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Your surname should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 50,
+                    ]),
+                ]
             ])
             ->add('firstName', TextType::class, [
-                'label' => 'First name'
+                'label' => 'First name',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlength' => '2',
+                    'maxlength' => '50',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a first name',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Your first name should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 50,
+                    ]),
+                ]
             ])
             ->add('telephone',TextType::class, [
                 'label' => 'Telephone'
@@ -70,11 +131,18 @@ class ProfileType extends AbstractType
                 }
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'submit',
+                'label' => 'Enregistrer',
                 'attr' => [
                     'class' => 'btn btn-success w-100'
                 ]
             ])
+            ->add('reset', ResetType::class, [
+                'label' => 'Annuler',
+                'attr' => [
+                    'class' => 'btn btn-success w-100'
+                ]
+            ])
+
         ;
     }
 
