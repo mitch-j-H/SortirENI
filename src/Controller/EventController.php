@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/events', name:'event_')]
 
-
 class EventController extends AbstractController
 {
     #[Route('', name: 'list')]
@@ -23,7 +22,7 @@ class EventController extends AbstractController
     {
     $events = $eventRepository->findAll();
 
-        // creer twig apres base
+
         return $this->render('event/list.html.twig', [
         'events'=>$events
         ]);
@@ -32,14 +31,10 @@ class EventController extends AbstractController
     public function details(int $id, EventRepository $eventRepository): Response
     {
 
-
-
         $event = $eventRepository->find($id);
 
-        $event->getLocation();
 
-        // creer twig apres base
-        return $this->render('event/detail.html.twig', [
+                return $this->render('event/detail.html.twig', [
        "event"=> $event
         ]);
     }
@@ -52,11 +47,6 @@ class EventController extends AbstractController
         $eventForm= $this->createForm(EventType::class, $event);
 
         $eventForm->handleRequest($request);
-
-
-
-
-
 
 
         if($eventForm->isSubmitted()){

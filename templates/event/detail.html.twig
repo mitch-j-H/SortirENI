@@ -10,13 +10,19 @@
  <p> Date et heure de la sortie : {{ event.startsAt | date }}</p>
  <p> Date limite d'inscription : {{ event.cutOffDate | date }}</p>
  <p> Nombre de places : {{ event.capacity }}</p>
- <p>  Description et infos : {{ event.eventInfo }}</p>
- <p> Etat :{{ event.status }}</p>
+ <p> Description et infos : {{ event.eventInfo }}</p>
+ <p> Durée : {{ event.duration }} minutes</p>
  <p> Campus : {{ event.Campus.name }}</p>
  <p> Lieu : {{ event.Location.name }}</p>
- <p> Rue: {{ event.Location.streetAddress }}</p>
+ <p> Rue : {{ event.Location.streetAddress }}</p>
+ <p>Longitude : {{ event.Location.longitude }}</p>
+ <p>Latitude : {{ event.Location.latitude }} </p>
+ <p>Code postal : {{ event.Location.city.postCode }}</p>
+ <p>Ville : {{ event.Location.city.name }}</p>
 
+ <p> Etat :{{ event.status }}</p>
 
+{# todo : liste des participants #}
 
 
 

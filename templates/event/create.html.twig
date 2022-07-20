@@ -6,6 +6,9 @@
 
     {{ form_start(eventForm) }}
     {{ form_widget(eventForm) }}
+
+
+    <p>Campus : {{ app.user.campus.name }}</p>
     <button>Ajouter une sortie</button>
     {{ form_end(eventForm) }}
 
