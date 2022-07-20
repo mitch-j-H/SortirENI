@@ -1,29 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-<h2> {{ event.name }}
-{% endblock %}
 
 {% block body %}
- <h2> Nom de la sortie : {{ event.name }} </h2>
+<article>
+ <h2>  {{ event.name }} </h2>
 
- <p> Date et heure de la sortie : {{ event.startsAt | date }}</p>
- <p> Date limite d'inscription : {{ event.cutOffDate | date }}</p>
- <p> Nombre de places : {{ event.capacity }}</p>
- <p> Description et infos : {{ event.eventInfo }}</p>
- <p> Durée : {{ event.duration }} minutes</p>
- <p> Campus : {{ event.Campus.name }}</p>
- <p> Lieu : {{ event.Location.name }}</p>
- <p> Rue : {{ event.Location.streetAddress }}</p>
- <p>Longitude : {{ event.Location.longitude }}</p>
- <p>Latitude : {{ event.Location.latitude }} </p>
- <p>Code postal : {{ event.Location.city.postCode }}</p>
- <p>Ville : {{ event.Location.city.name }}</p>
+ <div><h3> Date et heure de la sortie : </h3><p>{{ event.startsAt | date('d-m-y à H:i') }}</p></div>
+ <div><h3>Date limite d'inscription :</h3>  <p> {{ event.cutOffDate | date('d-m-y') }}</p></div>
+  <div><h3>Nombre de places :  </h3><p>{{ event.capacity }}</p></div>
+   <div><h3>Description et infos :  </h3> <p>{{ event.eventInfo }}</p></div>
+    <div><h3>Durée :</h3> <p>{{ event.duration }} minutes</p></div>
+     <div><h3>Campus :</h3><p> {{ event.Campus.name }}</p></div>
+      <div><h3>Lieu :</h3> <p>{{ event.Location.name }}</p></div>
+       <div><h3>Rue :</h3> <p>{{ event.Location.streetAddress }}</p></div>
 
- <p> Etat :{{ event.status }}</p>
+        <div> <h3>Code postal :</h3>  <p>{{ event.Location.city.postCode }}</p></div>
+         <div><h3>Ville :</h3><p> {{ event.Location.city.name }}</p></div>
+          <div><h3>Latitude :</h3> <p>{{ event.Location.latitude }} </p></div>
+           <div><h3>Longitude :</h3> <p>{{ event.Location.longitude }}</p></div>
+
+            <div><h3> Etat :</h3><p>{{ event.status }}</p></div>
 
 {# todo : liste des participants #}
-
+</article>
 
 
 

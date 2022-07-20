@@ -32,6 +32,14 @@ thead>tr:hover{
     background-color: #302269;
     color: white;
 }
+tr:hover{
+    background-color: #d7d7d7;
+    color: #302269;
+    box-shadow: none;
+
+
+}
+
 container{
     background-color: white;
     border-radius: 20px;
@@ -41,10 +49,22 @@ container{
     justify-content: center;
 
 }
-tr:hover{
-  background-color: #d7d7d7;
-color: #302269;
-    box-shadow: none;
+/*Partie details*/
 
+article
+{
+    max-height: 60%;
+    max-width: 80%;
+    background-color: white;
+    border-radius: 20px;
+    margin:2%;
+    padding:50px;
+    display: flex;
+justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    font-family: 'Asul', sans-serif;
+    font-family: 'PT Sans Caption', sans-serif;
 
 }

@@ -60,5 +60,41 @@ class EventController extends AbstractController
         'eventForm'=> $eventForm->createView()
         ]);
     }
+    /**
+     * @Route ("/addParticipate/{id}", name="participate")
+     */
+    public function addParticipant(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager) : Response{
 
+        $event = $eventRepository->find($id);
+        $currentUser = $this->getUser();
+        $participants = $event->getEventAttendence();
+
+        $currentUser->addEventsAttending($event);
+$entityManager->persist($event);
+        $entityManager->flush();
+
+        return $this->render('event/detail.html.twig', [
+            'event' => $event,
+            'currentUser' => $currentUser,
+            'participants' => $participants
+        ]);
+    }
+
+    /**
+     * @Route ("/removeParticipate/{id}", name="removeParticipate")
+     */
+    public function leaveEvent(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager) : Response
+    {
+        $event = $eventRepository->find($id);
+        $currentUser = $this->getUser();
+
+        $currentUser->removeEventsAttending($event);
+
+        $entityManager->persist($event);
+        $entityManager->flush();
+
+        return $this->render('event/detail.html.twig', [
+            'event' => $event,
+        ]);
+    }
 }
