@@ -7,10 +7,12 @@ use App\Form\ProfileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 //testing to make this the default acces page before touching permissions
 //#[Route(path: '/participant', name: 'participant_')]
@@ -41,7 +43,7 @@ class ParticipantController extends AbstractController
     }
 
     #[Route(path: '/profile', name: 'profile')]
-    public function profile(Request $request, EntityManagerInterface $em): Response
+    public function profile(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $participant = $this->getUser();
         $profileForm = $this->createForm(ProfileType::class, $participant);
@@ -51,6 +53,20 @@ class ParticipantController extends AbstractController
         if($profileForm->isSubmitted() && $profileForm->isValid()) {
             $participant = new Participant();
             $participant = $profileForm->getData();
+            $imageFile = $profileForm->get('image')->getData();
+            if($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch(FileException $e) {
+                }
+                $participant->setImage($newFilename);
+            }
 
             $em->persist($participant);
             $em->flush();

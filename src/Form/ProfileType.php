@@ -29,12 +29,9 @@ class ProfileType extends AbstractType
         $builder
 
             ->add('userName', TextType::class, [
-                'label' => 'UserName',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
+                'label' => ' ',
                 'attr' => [
-                    'class' => 'form-control',
+                    'placeholder' => 'Pseudo',
                     'minlength' => '2',
                     'maxlength' => '50',
                 ],
@@ -51,12 +48,9 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('surname', TextType::class, [
-                'label' => 'Surname',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
+                'label' => ' ',
                 'attr' => [
-                    'class' => 'form-control',
+                    'placeholder' => 'Nom',
                     'minlength' => '2',
                     'maxlength' => '50',
                 ],
@@ -73,12 +67,9 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('firstName', TextType::class, [
-                'label' => 'First name',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
+                'label' => ' ',
                 'attr' => [
-                    'class' => 'form-control',
+                    'placeholder' => 'Prénom',
                     'minlength' => '2',
                     'maxlength' => '50',
                 ],
@@ -95,10 +86,17 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('telephone',TextType::class, [
-                'label' => 'Telephone'
+                'label' => ' ',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Téléphone'
+                ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email'
+                'label' => ' ',
+                'attr' => [
+                    'placeholder' => 'Email',
+                ]
             ])
             /*->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -106,14 +104,17 @@ class ProfileType extends AbstractType
                 'options' => ['attr' => ['class' => 'password-field']],
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Confirm your password']
-            ])
+            ])*/
             ->add('image', FileType::class, [
+                'label' => 'Ma photo',
                 'required' => false,
-                'label' => 'Image file',
+                'mapped' => false,
                 'constraints' => [
                     new file([
-                        'maxSize' => '4096k',
+                        'maxSize' => '1024k',
                         'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
                             'image/jpeg',
                             'image/jpg',
                             'image/png',
@@ -122,8 +123,9 @@ class ProfileType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid image'
                     ])
                 ]
-            ])*/
+            ])
             ->add('campus', EntityType::class, [
+                'label' => 'Campus ',
                 'class' => Campus::class,
                 'choice_label' => 'name',
                 'query_builder' => function(EntityRepository $repository) {
@@ -133,13 +135,13 @@ class ProfileType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => [
-                    'class' => 'btn btn-success w-100'
+                    'class' => 'profile-btn profile-submit'
                 ]
             ])
             ->add('reset', ResetType::class, [
                 'label' => 'Annuler',
                 'attr' => [
-                    'class' => 'btn btn-success w-100'
+                    'class' => 'profile-btn profile-reset'
                 ]
             ])
 
