@@ -2,29 +2,61 @@
 
 
 {% block body %}
-<article>
- <h2>  {{ event.name }} </h2>
+    <article>
+        <h2>  {{ event.name }} </h2>
 
- <div><h3> Date et heure de la sortie : </h3><p>{{ event.startsAt | date('d-m-y à H:i') }}</p></div>
- <div><h3>Date limite d'inscription :</h3>  <p> {{ event.cutOffDate | date('d-m-y') }}</p></div>
-  <div><h3>Nombre de places :  </h3><p>{{ event.capacity }}</p></div>
-   <div><h3>Description et infos :  </h3> <p>{{ event.eventInfo }}</p></div>
-    <div><h3>Durée :</h3> <p>{{ event.duration }} minutes</p></div>
-     <div><h3>Campus :</h3><p> {{ event.Campus.name }}</p></div>
-      <div><h3>Lieu :</h3> <p>{{ event.Location.name }}</p></div>
-       <div><h3>Rue :</h3> <p>{{ event.Location.streetAddress }}</p></div>
+        <div><h3> Date et heure de la sortie : </h3>
+            <p>{{ event.startsAt | date('d-m-y à H:i') }}</p></div>
+        <div><h3>Date limite d'inscription :</h3>
+            <p> {{ event.cutOffDate | date('d-m-y') }}</p></div>
+        <div><h3>Nombre de places : </h3>
+            <p>{{ availablePlaces }}</p></div>
+        <div><h3>Description et infos : </h3>
+            <p>{{ event.eventInfo }}</p></div>
+        <div><h3>Durée :</h3>
+            <p>{{ event.duration }} minutes</p></div>
+        <div><h3>Campus :</h3>
+            <p> {{ event.Campus.name }}</p></div>
+        <div><h3>Lieu :</h3>
+            <p>{{ event.Location.name }}</p></div>
+        <div><h3>Rue :</h3>
+            <p>{{ event.Location.streetAddress }}</p></div>
 
-        <div> <h3>Code postal :</h3>  <p>{{ event.Location.city.postCode }}</p></div>
-         <div><h3>Ville :</h3><p> {{ event.Location.city.name }}</p></div>
-          <div><h3>Latitude :</h3> <p>{{ event.Location.latitude }} </p></div>
-           <div><h3>Longitude :</h3> <p>{{ event.Location.longitude }}</p></div>
+        <div><h3>Code postal :</h3>
+            <p>{{ event.Location.city.postCode }}</p></div>
+        <div><h3>Ville :</h3>
+            <p> {{ event.Location.city.name }}</p></div>
+        <div><h3>Latitude :</h3>
+            <p>{{ event.Location.latitude }} </p></div>
+        <div><h3>Longitude :</h3>
+            <p>{{ event.Location.longitude }}</p></div>
 
-            <div><h3> Etat :</h3><p>{{ event.status }}</p></div>
+        <div><h3> Etat :</h3>
+            <p>{{ event.status }}</p></div>
 
-{# todo : liste des participants #}
-</article>
+    </article>
+    <article>
+        <h3>Participants Inscrits :</h3>
 
+        <table>
 
+            <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+            </tr>
+            </thead>
 
+            <tbody>
+            {% for e in event.eventAttendence %}
+                <tr>
+                    <td>{{ e.firstname }}</td>
+                    <td>{{ e.surname }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </article>
 
 {% endblock %}
