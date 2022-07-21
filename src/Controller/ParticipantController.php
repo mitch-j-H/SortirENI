@@ -43,7 +43,15 @@ class ParticipantController extends AbstractController
     }
 
     #[Route(path: '/profile', name: 'profile')]
-    public function profile(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function profile(Request $request, EntityManagerInterface $em): Response
+    {
+
+        return $this->render('participant/profile.html.twig', [
+        ]);
+    }
+
+    #[Route(path: '/profile-update', name: 'profile-update')]
+    public function updateProfile(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $participant = $this->getUser();
         $profileForm = $this->createForm(ProfileType::class, $participant);
@@ -72,11 +80,22 @@ class ParticipantController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'Profile has been updated');
 
-            return $this->redirectToRoute('participant_profile');
+            return $this->redirectToRoute('participant_profile-update');
         }
-        return $this->render('participant/profile.html.twig', [
+        return $this->render('participant/profile-update.html.twig', [
             'profileForm' => $profileForm->createView(),
         ]);
     }
+    #[Route(path: '/profile/{id}', name: 'participant-profile')]
+    public function participantProfile($id, Request $request, EntityManagerInterface $em): Response
+    {
+        $participant = $em->getRepository(Participant::class)->find($id);
+        if ($participant == null) {
+            throw $this->createNotFoundException("Utilisateur inconnu !");
+        }
 
+        return $this->render('participant/participant-profile.html.twig', [
+            'participant' => $participant
+        ]);
+    }
 }

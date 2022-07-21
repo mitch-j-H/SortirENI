@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -29,16 +30,12 @@ class ProfileType extends AbstractType
         $builder
 
             ->add('userName', TextType::class, [
-                'label' => ' ',
                 'attr' => [
                     'placeholder' => 'Pseudo',
                     'minlength' => '2',
                     'maxlength' => '50',
                 ],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a user name',
-                    ]),
                     new Length([
                         'min' => 2,
                         'minMessage' => 'Your user name should be at least {{ limit }} characters',
@@ -48,7 +45,6 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('surname', TextType::class, [
-                'label' => ' ',
                 'attr' => [
                     'placeholder' => 'Nom',
                     'minlength' => '2',
@@ -67,7 +63,6 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('firstName', TextType::class, [
-                'label' => ' ',
                 'attr' => [
                     'placeholder' => 'Prénom',
                     'minlength' => '2',
@@ -86,16 +81,17 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('telephone',TextType::class, [
-                'label' => ' ',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Téléphone'
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => ' ',
                 'attr' => [
                     'placeholder' => 'Email',
+                ],
+                'constraints' => [
+                    new Email(['message' => 'Veuillez saisir une adresse mail valide'])
                 ]
             ])
             /*->add('password', RepeatedType::class, [
@@ -106,7 +102,6 @@ class ProfileType extends AbstractType
                 'second_options' => ['label' => 'Confirm your password']
             ])*/
             ->add('image', FileType::class, [
-                'label' => 'Ma photo',
                 'required' => false,
                 'mapped' => false,
                 'constraints' => [
@@ -125,7 +120,6 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('campus', EntityType::class, [
-                'label' => ' ',
                 'class' => Campus::class,
                 'choice_label' => 'name',
                 'query_builder' => function(EntityRepository $repository) {

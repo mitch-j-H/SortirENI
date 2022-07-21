@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{asset('css/profile.css')}}" >
+{% endblock %}
+
+{% block header %}Mon profil{% endblock %}
+
+{% block body %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash flash-{{label}}">{{message}}</div>
+        {% endfor %}
+    {% endfor %}
+
+{{form_start(profileForm)}}
+    <div class="profile">
+        <div class="profile-img-container">
+            {% if app.user.image %}
+                <img id="profile-img" src="{{ asset('uploads/images/' ~ app.user.image) }}" alt=""{{ app.user.image }}>
+            {% else %}
+                <div>
+                    <img src="{{ asset('uploads/images/avatar-62d7d06dc443b.jpg') }}" alt="default image" }}>
+                </div>
+            {% endif %}
+            <div class="profile-selectImage">
+                <span id="modify">Modifier ma photo</span>
+                {{ form_row(profileForm.image) }}
+            </div>
+
+        </div>
+        <div class="profile-form">
+            <div class="profile-input">
+                {{ form_row(profileForm.userName) }}
+                {{ form_row(profileForm.firstName) }}
+                {{ form_row(profileForm.surname) }}
+                {{ form_row(profileForm.telephone) }}
+                {{ form_row(profileForm.email) }}
+                <div id="profile-label-campus">Campus : </div>
+                {{ form_row(profileForm.campus, {'attr': {'class': 'test'}}) }}
+
+            </div>
+            {#
+            <div class="profile-input">
+                {{ form_row(profileForm.firstName) }}
+            </div>
+            <div class="profile-input">
+                {{ form_row(profileForm.surname) }}
+            </div>
+            <div class="profile-input">
+                {{ form_row(profileForm.telephone) }}
+            </div>
+            <div class="profile-input">
+                {{ form_row(profileForm.email) }}
+            </div>
+            <div class="profile-input">
+                {{ form_row(profileForm.campus) }}
+            </div>
+            <div class="profile-input">
+                {{ form_row(profileForm.image) }}
+            </div>
+            #}
+            <div class="profile-btn">
+                <div class="profile-submit">
+                    {{ form_row(profileForm.submit) }}
+                </div>
+                <div class="profile-reset">
+                    {{ form_row(profileForm.reset) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{{ form_end(profileForm) }}
+
+
+
+
+
+
+
+
+{% endblock %}
