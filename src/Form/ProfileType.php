@@ -125,7 +125,7 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('campus', EntityType::class, [
-                'label' => 'Campus ',
+                'label' => ' ',
                 'class' => Campus::class,
                 'choice_label' => 'name',
                 'query_builder' => function(EntityRepository $repository) {

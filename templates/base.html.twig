@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('css/event.css') }}">
-    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    {% block extrastyles %}{% endblock %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Asul&family=PT+Sans+Caption:wght@700&display=swap" rel="stylesheet">
@@ -17,24 +18,26 @@
 </head>
 <body>
     <div class="container">
-        <header>
-                <section class="">
-                    <a href="{{ path('event_list') }}" class="header-logo">
-                        <img src="{{ asset('img/logo-svg-2.svg') }}" alt="Logo-cocktail" class="logo">
-                    </a>
-                </section>
-                <section class="page-title">
-                    <h1>{% block title %} Welcome {% endblock %}</h1>
-                </section>
-        </header>
-        {% include('inc/nav.html.twig') %}
-        <main>
-                {% block body %}
-                {% endblock %}
-        </main>
-        <footer>
+        <aside>
+            <header>
+                <a href="{{ path('event_list') }}" class="header-logo">
+                    <img src="{{ asset('img/logo-svg-2.svg') }}" alt="Logo-cocktail" id="logo">
+                </a>
+                <h1>Sortir.com</h1>
+                <div class="user-card">
+                    <img src="{{ asset('uploads/images/' ~ app.user.image) }}" id="profile-photo" alt="profile-photo">
+                    <h2 id="username">{{ app.user.userName }}</h2>
+                </div>
+            </header>
+            {% include('inc/nav.html.twig') %}
+            <footer>
                 <p>&copy; Sortir.fr {{ "now"|date('Y')}}</p>
-        </footer>
+            </footer>
+        </aside>
+        <main>
+            <h2 id="main-header">{% block header %}{% endblock %}</h2>
+            {% block body %}{% endblock %}
+        </main>
     </div>
 </body>
 </html>

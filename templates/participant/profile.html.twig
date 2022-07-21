@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{asset('css/profile.css')}}" >
 {% endblock %}
 
-{% block title %}Profile{% endblock %}
+{% block header %}Mon profil{% endblock %}
 
 {% block body %}
     {% for label, messages in app.flashes %}
@@ -23,7 +23,10 @@
                     <img src="{{ asset('uploads/images/avatar-62d7d06dc443b.jpg') }}" alt="default image" }}>
                 </div>
             {% endif %}
-             {{ form_row(profileForm.image) }}
+            <div class="profile-selectImage">
+                <span>Modifier ma photo</span>
+                {{ form_row(profileForm.image) }}
+            </div>
 
         </div>
         <div class="profile-form">
@@ -33,6 +36,7 @@
                 {{ form_row(profileForm.surname) }}
                 {{ form_row(profileForm.telephone) }}
                 {{ form_row(profileForm.email) }}
+                <div id="profile-label-campus">Campus : </div>
                 {{ form_row(profileForm.campus, {'attr': {'class': 'test'}}) }}
 
             </div>
