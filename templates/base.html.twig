@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('css/event.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <script src="https://kit.fontawesome.com/33c67bf1df.js" crossorigin="anonymous"></script>
     {% block extrastyles %}{% endblock %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +36,16 @@
             </footer>
         </aside>
         <main>
+
+            {# read and display all flash messages #}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class=" flash flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
             <h2 id="main-header">{% block header %}{% endblock %}</h2>
             {% block body %}{% endblock %}
         </main>

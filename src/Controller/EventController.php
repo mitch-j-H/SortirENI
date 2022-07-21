@@ -20,6 +20,9 @@
         {
             $events = $eventRepository->findAll();
 
+          /*  foreach($events as $event){
+                $this->updateStatusFromDateOfTheDayAndAttendence($event);
+        }*/
 
             return $this->render('event/list.html.twig', [
                 'events' => $events
@@ -89,6 +92,8 @@
             $entityManager->persist($event);
             $entityManager->flush();
 
+            $this->addFlash('addParticipate', 'Inscription acceptée !');
+
             return $this->render('event/detail.html.twig', [
                 'event' => $event,
                 'currentUser' => $currentUser,
@@ -116,10 +121,43 @@
             $entityManager->persist($event);
             $entityManager->flush();
 
+            $this->addFlash('leaveEvent', 'Désinscription acceptée !');
+
             return $this->render('event/detail.html.twig', [
                 'event' => $event,
                 'availablePlaces' => $availablePlaces
 
             ]);
         }
+
+
+  /*      public function updateStatusFromDateOfTheDayAndAttendence(Event $event){
+
+            $dateOfTheDay = new \DateTime();
+
+            //Nombre d'inscrits
+            $particicipants = $event->getEventAttendence()->count();
+            //capacité
+            $capacityEvent = $event->getCapacity();
+            //places restantes
+            $availablePlaces = $capacityEvent - $particicipants;
+
+            $cutOffDate = $event->getCutOffDate();
+            $StartsAtDate = $event->getStartsAt();
+            if($availablePlaces<=0){
+                $event->setStatus('fermé');
+            }
+            if($dateOfTheDay>$cutOffDate){
+                $event->setStatus('fermé');
+            }
+            if($dateOfTheDay<$StartsAtDate){
+                $event->setStatus('En cours');
+            }
+            if($dateOfTheDay >= (strtotime("+1 month", strtotime($StartsAtDate)))) {
+                $event->setStatus('Historisé');
+            }else{
+                $event->setStatus('ouvert');
+            }
+
+        }*/
     }
