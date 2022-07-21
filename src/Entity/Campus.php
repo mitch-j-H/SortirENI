@@ -18,6 +18,9 @@ class Campus
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\OneToMany( mappedBy: "campus", targetEntity: Participant::class)]
+    private Collection $students;
+
     #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Event::class)]
     private Collection $organizerSite;
 
@@ -43,6 +46,33 @@ class Campus
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Participant>
+     */
+    public function getStudents():Collection {
+        return $this->students;
+    }
+
+    public function addStudent(Participant$participant): self {
+        if(!$this->students->contains($participant)) {
+            $this->students[] = $participant;
+            $participant->setCampus($this);
+        }
+        return $this;
+    }
+
+    public function removeStudents(Participant$participant) {
+        if($this->students->contains($participant)) {
+            $this->students->removeElement($participant);
+
+            if($participant->getCampus() === $this) {
+                $participant->setCampus(null);
+            }
+            return $this;
+        }
+    }
+
     /**
      * @return Collection<int, Event>
      */
