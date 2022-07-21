@@ -42,7 +42,6 @@
         height: 150px;
         width: 30%;
         border: 1px solid black;
-        background-color: #ef5350;
     }
 
     #profile-img {
@@ -67,26 +66,48 @@
 }
 
 @media screen and (min-width: 769px) {
+    form {
+        width: 100%;
+        height: 100%;
+    }
     .profile {
+        width: inherit;
+        height: inherit;
         display: flex;
         justify-content: space-around;
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+
+    .profile-img-container, .profile-form{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        border-radius: 10px;
+        height: 60%;
+        max-height: 700px;
+        min-height: 300px;
+        padding-top: 2%;
+        padding-bottom: 2%;
+
+        box-shadow: 0 0 15px #bcbcbc;
+        -moz-box-shadow: 0 0 15px #bcbcbc;
+        -webkit-box-shadow: 0 0 15px #bcbcbc;
+        -o-box-shadow: 0 0 15px #bcbcbc;
+    }
+
+    .profile-img-container{
+        width: 30%;
+        max-width: 350px;
+        min-width: 200px;
         align-items: center;
-        width: 50%;
-        border: 2px solid black;
-        background-color: #FFFFFF;
-        padding: 2%
+
     }
     .profile-form {
-        display: flex;
-        flex-direction: column;
-        width: 50%
-    }
-
-    .profile-img-container {
-        display: flex;
-        flex-direction: column;
-        width: 30%;
-
+        width: 50%;
+        max-width: 500px;
+        min-width: 280px;
     }
 
     #profile-img {
@@ -96,17 +117,36 @@
         max-height: 150px;
     }
 
-    .profile-input input, select, file {
-        margin-bottom: 20px;
-        width: 100%;
-        max-width: 350px;
-        min-width: 70%;
+    #profile_image {
+        width:90px
+    }
+    .profile-selectImage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 2%;
+        padding-right: 2%;
     }
 
     .profile-input div {
         display: flex;
         justify-content: center;
     }
+
+    .profile-input input, select {
+        width: 96%;
+        max-width: 350px;
+        min-width: 200px;
+        margin-bottom: 20px;
+        padding-left: 5px;
+    }
+
     label, .profile-input label{
         display: none;
     }
@@ -115,12 +155,10 @@
         justify-content: space-between;
         width: 100%;
     }
-    .input-labeled div{
-        width: 100%;
 
-    }
-    #label {
-        width: 20%;
+    #profile-label-campus {
+        align-self: center;
+        margin-bottom: 5px;
     }
 
     .profile-btn {
@@ -136,16 +174,18 @@
         height: 30px;
         border-radius: 5px;
         font-weight: 500;
-        color: white
+        color: white;
+        box-shadow: 0 2px 2px #939393;
     }
 
     #profile_submit{
-        border: 1px solid #1976d2;
-        background-color: #1976d2;
+        border: 1px solid #1565C0;
+        background-color: #1565C0;
+
     }
     #profile_submit:hover {
-        border: 1px solid #42a5f5;
-        background-color: #42a5f5;
+        border: 1px solid #1a80ed;
+        background-color: #1a80ed;
     }
     #profile_reset{
         border: 1px solid #d32f2f;
