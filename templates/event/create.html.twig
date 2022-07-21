@@ -1,20 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
+{% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/create.css') }}">{% endblock %}
 
-  <div>
+{% block title %}
+  Créer un événement
+{% endblock %}
+
+{% block body %}
 
     {{ form_start(eventForm) }}
-    {{ form_widget(eventForm) }}
-
-
-    <p>Campus : {{ app.user.campus.name }}</p>
-    <button>Ajouter une sortie</button>
-    {{ form_end(eventForm) }}
-
-
-
+  <div class="form-main">
+    <div>
+      {{ form_widget(eventForm.name) }}
+      {{ form_widget(eventForm.startsAt) }}
+      {{ form_widget(eventForm.cutOffDate) }}
+      {{ form_widget(eventForm.capacity) }}
+      {{ form_widget(eventForm.duration) }}
+      {{ form_widget(eventForm.eventInfo) }}
+    </div>
+    <div>
+      <p>Campus : {{ app.user.campus.name }}</p>
+      {{ form_widget(eventForm.Location) }}
+    </div>
+  </div>
+  <div>
+    <input type="submit" name="">
 
   </div>
-
+  {{ form_end(eventForm) }}
 {% endblock %}

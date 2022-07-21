@@ -49,7 +49,7 @@ class EventType extends AbstractType
 
 
 
-            ->add('Location', EntityType::class, [
+            ->add('Location', Location::class/* [
                 'class' => Location::class,
                 'label'=> 'Lieu',
                 'choice_label' => 'name',
@@ -57,11 +57,8 @@ class EventType extends AbstractType
                 return $repo->createQueryBuilder('l')
                     ->orderBy('l.name', 'ASC');
 
-
                 }
-
-
-            ])
+            ]*/)
 
         ;
     }

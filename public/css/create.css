@@ -1,0 +1,9 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-main {
+    display: flex;
+    flex-direction: row;
+}
