@@ -1,50 +1,77 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  <h1>Liste des sorties : </h1>
+    <h1>Liste des sorties : </h1>
 
 
-<Container>
+    {% set inscriptionOK = true %}
 
-  <table>
-    <thead>
-    <td>Nom de la sortie</td>
-    <td>Date de la sortie</td>
-    <td>Cloture</td>
-    <td>Inscrits/Places</td>
-    <td>Etat</td>
-    <td>Inscrit</td>
-    <td>Organisateur</td>
-    <td>Actions</td>
-    </thead>
-    <tbody>
-  {% for event in events %}
-    <tr>
-    <td>{{ event.name }}</td>
-    <td>{{ event.startsAt | date('d-m-y à H:i') }}</td>
-    <td>{{ event.cutOffDate | date('d-m-y') }}</td>
-    <td>{{ event.eventAttendence | length }}/{{ event.capacity }}</td>
-    <td>{{ event.status }}</td>
-      <td></td>
-      <td>{{ event.organiser.username }}</td>
-      <td>
-        {% if app.user.id == event.organiser.id %}
-          <a href="{{ path('event_detail', {'id': event.id}) }}" title ="modifier la sortie"> Modifier </a> - Supprimer
-        {% endif %}
-        {% if app.user.id != event.organiser.id%}
-        <a href="{{ path('event_detail', {'id': event.id}) }}" title ="voir le détail de la sortie"> Afficher </a> -
 
-          <a href="{{ path('event_participate', {'id': event.id}) }}"> S'incrire </a>
-          <a href="{{ path('event_removeParticipate', {'id': event.id}) }}">Se désister</a>
 
-          {% endif %}
+    <Container>
 
-      </td>
-    </tr>
-  {% endfor %}
-    </tbody>
+        <table>
+            <thead>
+            <td>Nom de la sortie</td>
+            <td>Date de la sortie</td>
+            <td>Cloture</td>
+            <td>Inscrits/Places</td>
+            <td>Etat</td>
+            <td>Inscrit</td>
+            <td>Organisateur</td>
+            <td>Actions</td>
+            </thead>
+            <tbody>
 
-  </table>
-</Container>
+            {% for event in events %}
+
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.startsAt | date('d-m-y à H:i') }}</td>
+                    <td>{{ event.cutOffDate | date('d-m-y') }}</td>
+                    <td>{{ event.eventAttendence | length }}/{{ event.capacity }}</td>
+                    <td>{{ event.status }}</td>
+                    <td>
+
+
+                        {% if app.user in event.eventAttendence %}
+                            X
+
+                        {% endif %}
+
+
+                    </td>
+                    <td>{{ event.organiser.username }}</td>
+                    <td>
+                        {% if app.user == event.organiser %}
+                            <a href="{{ path('event_detail', {'id': event.id}) }}" title="modifier la sortie">
+                                Modifier </a> - Supprimer
+                        {% endif %}
+
+                        {% if app.user != event.organiser %}
+                            <a href="{{ path('event_detail', {'id': event.id}) }}" title="voir le détail de la sortie">
+                                Afficher </a> -
+
+                            {% if event.status == 'ouvert' %}
+
+
+                                {% if app.user not in event.eventAttendence %}
+                                    <a href="{{ path('event_participate', {'id': event.id}) }}"> S'inscrire </a>
+                                {% else %}
+                                    <a href="{{ path('event_removeParticipate', {'id': event.id}) }}">Se désister</a
+                                {% endif %}
+                            {% endif %}
+
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </Container>
+
+
 
 {% endblock %}
