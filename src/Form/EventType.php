@@ -6,6 +6,7 @@ use App\Entity\Campus;
 use App\Entity\City;
 use App\Entity\Event;
 use App\Entity\Location;
+use App\Form\model\EventFormModel;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,6 +23,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EventType extends AbstractType
 {
+//    public function buildForm(FormBuilderInterface $builder, array $options): void
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
@@ -49,7 +51,7 @@ class EventType extends AbstractType
 
 
 
-            ->add('Location', Location::class/* [
+            ->add('Location', EntityType::class, [
                 'class' => Location::class,
                 'label'=> 'Lieu',
                 'choice_label' => 'name',
@@ -58,7 +60,7 @@ class EventType extends AbstractType
                     ->orderBy('l.name', 'ASC');
 
                 }
-            ]*/)
+            ])
 
         ;
     }
@@ -66,7 +68,8 @@ class EventType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Event::class,
+//            'data_class' => Eventform::class,
+            'data_class' => EventFormModel::class,
         ]);
     }
 

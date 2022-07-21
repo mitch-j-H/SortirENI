@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\EventType;
+use App\Form\model\EventFormModel;
 use App\Repository\CityRepository;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,7 +45,8 @@ class EventController extends AbstractController
 
         $event = new Event();
 
-        $eventForm= $this->createForm(EventType::class, $event);
+//        $eventForm= $this->createForm(EventType::class, $event);
+        $eventForm= $this->createForm(EventFormModel::class, $event);
 
         $eventForm->handleRequest($request);
 
