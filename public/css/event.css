@@ -49,6 +49,14 @@ container{
     justify-content: center;
 
 }
+#checkInscription{
+    background-color: #06A77D;
+    font-size: 1.5em;
+    color: white;
+    padding:10px;
+    border-radius: 10px;
+}
+
 /*Partie details*/
 
 article
@@ -58,13 +66,33 @@ article
     background-color: white;
     border-radius: 20px;
     margin:2%;
-    padding:50px;
+    padding:20px;
     display: flex;
-justify-content: center;
+    justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
-
     font-family: 'Asul', sans-serif;
     font-family: 'PT Sans Caption', sans-serif;
 
+}
+/* ALERTE MESSAGES*/
+
+.flash{
+    padding: 20px;
+    font-size: 1.5rem;
+    margin: 1rem;
+    width: 25%;
+    text-align: center;
+    color: white;
+    font-family: 'Asul', sans-serif;
+    font-family: 'PT Sans Caption', sans-serif;
+}
+
+.flash-addParticipate{
+    background-color: #06A77D;
+    font-weight: bold;
+
+}
+.flash-leaveEvent{
+    background-color: #F46197;
 }
