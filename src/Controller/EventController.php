@@ -55,10 +55,13 @@
 
             $event = new Event();
 
+            $event->setOrganiser($this->getUser());
+
             $eventForm = $this->createForm(EventType::class, $event);
 
             $eventForm->handleRequest($request);
-
+            //changer par une methode create status
+            $event->setStatus('ouvert');
 
             if ($eventForm->isSubmitted()) {
 
@@ -72,9 +75,8 @@
             ]);
         }
 
-        /**
-         * @Route ("/addParticipate/{id}", name="participate")
-         */
+
+         #[Route ("/addParticipate/{id}", name: "participate")]
         public function addParticipant(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager): Response
         {
 
@@ -131,7 +133,7 @@
         }
 
 
-  /*      public function updateStatusFromDateOfTheDayAndAttendence(Event $event){
+     /*   public function updateStatusFromDateOfTheDayAndAttendence(Event $event){
 
             $dateOfTheDay = new \DateTime();
 

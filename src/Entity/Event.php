@@ -20,7 +20,7 @@
         private ?string $name = null;
 
         #[ORM\Column]
-        private ?\DateTimeImmutable $startsAt = null;
+        private ?\DateTime $startsAt = null;
 
         #[ORM\Column]
         private ?int $duration = null;
@@ -78,12 +78,12 @@
             return $this;
         }
 
-        public function getStartsAt(): ?\DateTimeImmutable
+        public function getStartsAt(): ?\DateTime
         {
             return $this->startsAt;
         }
 
-        public function setStartsAt(\DateTimeImmutable $startsAt): self
+        public function setStartsAt(\DateTime $startsAt): self
         {
             $this->startsAt = $startsAt;
 
