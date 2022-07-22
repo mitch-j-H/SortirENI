@@ -3,6 +3,8 @@
     namespace App\Controller;
 
     use App\Entity\Event;
+    use App\Entity\Reason;
+    use App\Form\CancelEventType;
     use App\Form\EventType;
     use App\Repository\EventRepository;
     use Doctrine\ORM\EntityManagerInterface;
@@ -20,9 +22,9 @@
         {
             $events = $eventRepository->findAll();
 
-          /*  foreach($events as $event){
-                $this->updateStatusFromDateOfTheDayAndAttendence($event);
-        }*/
+            /*  foreach($events as $event){
+                  $this->updateStatusFromDateOfTheDayAndAttendence($event);
+          }*/
 
             return $this->render('event/list.html.twig', [
                 'events' => $events
@@ -63,7 +65,7 @@
             //changer par une methode create status
             $event->setStatus('ouvert');
 
-            if ($eventForm->isSubmitted()) {
+            if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
                 $entityManager->persist($event);
                 $entityManager->flush();
@@ -75,8 +77,34 @@
             ]);
         }
 
+        #[Route ("/cancelEvent/{id}", name: "cancel")]
+        public function cancelEvent(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager, Request $request): Response
+        {
+            $event = $eventRepository->find($id);
 
-         #[Route ("/addParticipate/{id}", name: "participate")]
+            $reason= new Reason();
+
+            $CanceleventForm = $this->createForm(CancelEventType::class, $reason);
+
+            $CanceleventForm->handleRequest($request);
+
+
+
+            if ($CanceleventForm->isSubmitted() && $CanceleventForm->isValid()) {
+
+                $event->setReason($reason);
+                $entityManager->persist($reason);
+                $entityManager->flush();
+
+            }
+            return $this->render('event/cancel.html.twig', [
+                'cancelEventForm' => $CanceleventForm->createView(),
+                'event'=>$event
+            ]);
+        }
+
+
+        #[Route ("/addParticipate/{id}", name: "participate")]
         public function addParticipant(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager): Response
         {
 
@@ -133,33 +161,33 @@
         }
 
 
-     /*   public function updateStatusFromDateOfTheDayAndAttendence(Event $event){
+        /*   public function updateStatusFromDateOfTheDayAndAttendence(Event $event){
 
-            $dateOfTheDay = new \DateTime();
+               $dateOfTheDay = new \DateTime();
 
-            //Nombre d'inscrits
-            $particicipants = $event->getEventAttendence()->count();
-            //capacité
-            $capacityEvent = $event->getCapacity();
-            //places restantes
-            $availablePlaces = $capacityEvent - $particicipants;
+               //Nombre d'inscrits
+               $particicipants = $event->getEventAttendence()->count();
+               //capacité
+               $capacityEvent = $event->getCapacity();
+               //places restantes
+               $availablePlaces = $capacityEvent - $particicipants;
 
-            $cutOffDate = $event->getCutOffDate();
-            $StartsAtDate = $event->getStartsAt();
-            if($availablePlaces<=0){
-                $event->setStatus('fermé');
-            }
-            if($dateOfTheDay>$cutOffDate){
-                $event->setStatus('fermé');
-            }
-            if($dateOfTheDay<$StartsAtDate){
-                $event->setStatus('En cours');
-            }
-            if($dateOfTheDay >= (strtotime("+1 month", strtotime($StartsAtDate)))) {
-                $event->setStatus('Historisé');
-            }else{
-                $event->setStatus('ouvert');
-            }
+               $cutOffDate = $event->getCutOffDate();
+               $StartsAtDate = $event->getStartsAt();
+               if($availablePlaces<=0){
+                   $event->setStatus('fermé');
+               }
+               if($dateOfTheDay>$cutOffDate){
+                   $event->setStatus('fermé');
+               }
+               if($dateOfTheDay<$StartsAtDate){
+                   $event->setStatus('En cours');
+               }
+               if($dateOfTheDay >= (strtotime("+1 month", strtotime($StartsAtDate)))) {
+                   $event->setStatus('Historisé');
+               }else{
+                   $event->setStatus('ouvert');
+               }
 
-        }*/
+           }*/
     }
