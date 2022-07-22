@@ -65,6 +65,20 @@
             //changer par une methode create status
             $event->setStatus('ouvert');
 
+            if($eventForm->get('save')->isClicked() && $eventForm->isValid()){
+                $event->setStatus('Créee');
+
+                $entityManager->persist($event);
+                $entityManager->flush();
+            }
+
+            if($eventForm->get('publish')->isClicked() && $eventForm->isValid()){
+                $event->setStatus('Ouverte');
+
+                $entityManager->persist($event);
+                $entityManager->flush();
+            }
+
             if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
                 $entityManager->persist($event);

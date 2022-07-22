@@ -19,7 +19,8 @@
       {{ form_widget(eventForm.eventInfo) }}
     </div>
     <div class="column-right">
-      <p>Campus : {{ app.user.campus.name }}</p>
+        {{ form_widget(eventForm.campus) }}
+{#      <p>Campus : {{ app.user.campus.name }}</p>#}
       <div class="city-box">
         {{ form_widget(eventForm.Location) }}
         {{ form_widget(eventForm.addLocale) }}
