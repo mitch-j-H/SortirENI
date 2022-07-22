@@ -78,15 +78,14 @@ class EventType extends AbstractType
             ->add('latitude', NumberType::class, [
                 'mapped' => false,
                 'label'=> 'Latitude',
-                'attr'=>['placeholder'=>'Latitude',
-                    'required'=>false
-                ]
+                'required'=>false,
+                'attr'=>['placeholder'=>'Latitude']
             ])
             ->add('longitude', NumberType::class, [
                 'mapped' => false,
                 'label'=> 'Longitude',
-                'attr'=>['placeholder'=>'Longitude',
-                    'required'=>false]
+                'required'=>false,
+                'attr'=>['placeholder'=>'Longitude']
             ])
 
             ->add('save', SubmitType::class, [
