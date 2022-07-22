@@ -1,9 +1,38 @@
 form {
     display: flex;
     flex-direction: column;
+    border: #333333 solid 2px;
+    border-radius: 10px;
+}
+
+input, select, textarea {
+    margin: 15px;
+    font-size: 20px;
+    border-radius:10px;
+    border: 1px solid #333333;
+    transition: .3s border-color;
+    background-color: inherit;
+    color: inherit;
 }
 
 .form-main {
     display: flex;
-    flex-direction: row;
+    justify-content: space-around;
+}
+
+.column-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.column-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 12rem;
+    margin: 15px;
 }
