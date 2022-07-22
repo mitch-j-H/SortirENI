@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/create.css') }}">{% endblock %}
+{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/create.css') }}">{% endblock %}
 
-{% block title %}
+{% block header %}
   Créer un événement
 {% endblock %}
 
@@ -10,7 +10,7 @@
 
     {{ form_start(eventForm) }}
   <div class="form-main">
-    <div>
+    <div class="column-left">
       {{ form_widget(eventForm.name) }}
       {{ form_widget(eventForm.startsAt) }}
       {{ form_widget(eventForm.cutOffDate) }}
@@ -18,14 +18,24 @@
       {{ form_widget(eventForm.duration) }}
       {{ form_widget(eventForm.eventInfo) }}
     </div>
-    <div>
+    <div class="column-right">
       <p>Campus : {{ app.user.campus.name }}</p>
-      {{ form_widget(eventForm.Location) }}
+      <div class="city-box">
+        {{ form_widget(eventForm.Location) }}
+        {{ form_widget(eventForm.addLocale) }}
+      </div>
+      {{ form_widget(eventForm.city) }}
+      <p>Rue : TODO ajx request info</p>
+      <p>Code Postal : TODO ajx request info</p>
+      {{ form_widget(eventForm.latitude) }}
+      {{ form_widget(eventForm.longitude) }}
     </div>
   </div>
-  <div>
-    <input type="submit" name="">
-
+  <div class="button-group">
+{#    <input type="submit" name="">#}
+    {{ form_widget(eventForm.save) }}
+    {{ form_widget(eventForm.publish) }}
+    {{ form_widget(eventForm.annuler) }}
   </div>
   {{ form_end(eventForm) }}
 {% endblock %}
