@@ -7,7 +7,30 @@
 
 {% block body %}
 
-    <Container>
+    <div id="filterBar">
+        <div class="bar">
+                {{ form_start(filterForm) }}
+                Rechercher une sortie : {{ form_widget(filterForm.name) }}
+                Campus : {{ form_widget(filterForm.campus) }}
+                Entre le : {{ form_widget(filterForm.fromDate) }}
+                et le : {{ form_widget(filterForm.toDate) }}
+        </div>
+        <div class="bar">
+                Sorties dont je suis l'organisateur/trice : {{ form_widget(filterForm.isTheOrganiser) }}
+                Sorties auxquelles je suis inscrit/e : {{ form_widget(filterForm.eventAttendenceTrue) }}
+                Sorties auxquelles je ne suis pas inscrit/e :{{ form_widget(filterForm.eventAttendenceFalse) }}
+                Sorties passées: {{ form_widget(filterForm.pastEvent) }}
+        </div>
+
+    <button>Rechercher</button>
+    {{ form_end(filterForm) }}
+    </div>
+
+
+
+
+
+    <div id="tableEvent">
 
         <table>
             <thead>
@@ -51,14 +74,12 @@
                                 <a href="{{ path('event_cancel', {'id': event.id}) }}" title="annuler la sortie">
 
                                     Annuler </a>
-                                {% endif %}
+                            {% endif %}
                             {% if event.reason is not null %}
                                 <a href="{{ path('event_detail', {'id': event.id}) }}" title="modifier la sortie">
 
-                                    Afficher </a> -
-
-                                     </a> ANNULEE
-                         {% endif %}
+                                    Afficher </a> ANNULEE
+                            {% endif %}
 
                         {% endif %}
 
@@ -84,10 +105,11 @@
             </tbody>
 
         </table>
-    </Container>
+    </div>
 
     <div>
         <button><a href="{{ path('event_create') }}" title="créer une sortie">Créer une sortie</a></button>
     </div>
 
 {% endblock %}
+
