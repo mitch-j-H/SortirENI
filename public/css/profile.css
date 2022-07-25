@@ -1,7 +1,17 @@
 @media screen and (max-width: 500px) {
     .profile {
-        background-color: #e65100;
+
     }
+
+    .profile-btn button, .profile-btn a {
+        width: 80px;
+    }
+
+    .profile-form  {
+        padding: 3% !important;
+    }
+
+
 }
 
 @media screen and (max-width: 768px) {
@@ -43,9 +53,13 @@
     #profile-img {
         border: 1px solid black;
         border-radius: 80px;
-        max-width: 110px;
-        max-height: 110px;
+        width: 110px;
+        height: 110px;
         margin-bottom: 10px;
+    }
+
+    #profile_image {
+        width: 87px
     }
 
     .profile-selectImage {
@@ -78,6 +92,16 @@
         min-width: 85px;
     }
 
+    .profile-info  {
+        margin-bottom: 10px;
+        width: 75%;
+        max-width: 380px;
+        min-width: 170px;
+        height: 17px;
+        border-bottom: 1px solid lightgray;
+        color: gray;
+    }
+
     .profile-input input, select {
         width: 75%;
         max-width: 350px;
@@ -86,10 +110,6 @@
 
     .profile select {
         width: 77%;
-    }
-
-    #profile_image {
-        width:85px
     }
 
     .profile-btn {
@@ -101,7 +121,7 @@
     .profile-btn button, .profile-btn a {
         display: flex;
         align-items: center;
-        width: 80px;
+        width: 90px;
         height: 30px;
         border-radius: 5px;
         font-weight: 500;
@@ -183,12 +203,12 @@
     #profile-img {
         border: 1px solid black;
         border-radius: 80px;
-        max-width: 150px;
-        max-height: 150px;
+        width: 150px;
+        height: 150px;
     }
 
     #profile_image {
-        width:90px
+        width: 87px
     }
 
     .profile-selectImage {
@@ -215,8 +235,13 @@
     }
 
     .profile-info  {
-        display: flex;
         margin-bottom: 10px;
+        width: 75%;
+        max-width: 380px;
+        min-width: 170px;
+        height: 17px;
+        border-bottom: 1px solid lightgray;
+        color: gray;
     }
 
     .profile-label {

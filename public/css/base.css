@@ -87,4 +87,11 @@ input, textarea {
         padding: 0;
         margin-top: 10px;
     }
+
+    main {
+        width: 96%;
+        max-width: 100%;
+        padding: 2%;
+        color: #333333
+    }
 }
