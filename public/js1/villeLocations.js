@@ -11,6 +11,8 @@ window.onload = () => {
         let data1 = this.name + "=" + this.value;
 
         console.log(data1);
+        console.log(form.getAttribute("method"));
+
         //jus
         // send using ajax
         fetch(form.action, {
@@ -18,15 +20,15 @@ window.onload = () => {
             body: data1,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
-            }
+            },
         })
             .then(response => response.text())
             .then(html => {
-                console.log();
+                // console.log();
                 let content = document.createElement("html");
                 content.innerHTML = html;
                 let nouveauSelect = content.querySelector("#event_city");
-                document.querySelector("#event_city").replaceWith(nouveauSelect);
+                document.querySelector("#event_Location").replaceWith(nouveauSelect);
             })
             .catch(error => {
                 console.log(error);

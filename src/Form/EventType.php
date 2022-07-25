@@ -121,13 +121,13 @@ class EventType extends AbstractType
             ]);
 
         $formModifier = function (FormInterface $form, City $city = null){
-            $loctions = null === $city ? [] : $city->getLocations();
+            $locations = null === $city ? [] : $city->getLocations();
 
 
             //add to the form
             $form->add('Location', EntityType::class, [
                 'class'=>Location::class,
-                'choices'=>$loctions,
+                'choices'=>$locations,
                 'choice_label'=>'name',
                 'placeholder'=>'Choisir un lieu',
                 'label'=>'Lieu'
