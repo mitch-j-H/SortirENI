@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -55,14 +56,15 @@ class ParticipantController extends AbstractController
     }
 
     #[Route(path: '/profile-update', name: 'profile-update')]
-    public function updateProfile(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function updateProfile(Request $request, EntityManagerInterface $em, SluggerInterface $slugger,  UserPasswordHasherInterface $hasher): Response
     {
         $participant = $this->getUser();
+        $participant2 = $participant->getPassword();
         $profileForm = $this->createForm(ProfileType::class, $participant);
         $profileForm->handleRequest($request);
 
         if($profileForm->isSubmitted() && $profileForm->isValid()) {
-            $participant = new Participant();
+/*            $participant = new Participant();*/
             $participant = $profileForm->getData();
             $imageFile = $profileForm->get('image')->getData();
             if($imageFile) {
@@ -78,6 +80,16 @@ class ParticipantController extends AbstractController
                 }
                 $participant->setImage($newFilename);
             }
+
+            $password = $participant->getPassword();
+            if (!empty($password)) {
+                $hashed = $hasher->hashPassword($participant, $participant->getPassword());
+                $participant->setPassword($hashed);
+            }
+            else {
+                $participant->setPassword($participant2);
+            }
+
 
             $em->persist($participant);
             $em->flush();

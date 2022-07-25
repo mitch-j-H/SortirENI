@@ -34,8 +34,8 @@
     }
 
     #profile-photo {
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
         border: 1px solid gray;
         border-radius: 80px;
         background-color: white;
@@ -43,8 +43,8 @@
 
     #username {
         font-weight: 600;
-        font-size: 17px;
-        margin-left: 10px;
+        font-size: 16px;
+        margin-left: 5px;
     }
 
     nav ul {
@@ -162,8 +162,8 @@
 
     #username {
         font-weight: 600;
-        font-size: 23px;
-        margin-left: 12px;
+        font-size: 22px;
+        margin-left: 11px;
     }
 
     nav ul {

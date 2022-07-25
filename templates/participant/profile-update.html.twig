@@ -14,7 +14,7 @@
                 <img id="profile-img" src="{{ asset('uploads/images/' ~ app.user.image) }}" alt=""{{ app.user.image }}>
             {% else %}
                 <div>
-                    <img src="{{ asset('uploads/images/avatar-62d7d06dc443b.jpg') }}" alt="default image" }}>
+                    <img id="profile-img" src="{{ asset('uploads/images/avatar-62d7d06dc443b.jpg') }}" alt="default image" }}>
                 </div>
             {% endif %}
             <div class="profile-selectImage">
@@ -44,6 +44,7 @@
                     <div class="profile-label">Email : </div>
                     {{ form_widget(profileForm.email) }}
                 </div>
+                    {{ form_widget(profileForm.password) }}
                 <div class="profile-row">
                     <div class="profile-label">Campus : </div>
                     {{ form_widget(profileForm.campus) }}
