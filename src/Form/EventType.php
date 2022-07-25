@@ -7,6 +7,7 @@ use App\Entity\City;
 use App\Entity\Event;
 use App\Entity\Location;
 use App\Form\model\EventFormModel;
+use App\Repository\LocationRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,6 +23,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
@@ -56,15 +60,6 @@ class EventType extends AbstractType
                 'attr'=>['placeholder'=>'Description et info']
             ])
 
-            ->add('Location', EntityType::class, [
-                'class' => Location::class,
-                'label'=> 'Lieu',
-                'choice_label' => 'name',
-                'query_builder' => function (EntityRepository $repo){
-                return $repo->createQueryBuilder('l')
-                    ->orderBy('l.name', 'ASC');
-                }
-            ])
             ->add('city', EntityType::class, [
                 'class' => City::class,
                 'mapped' => false,
@@ -111,7 +106,41 @@ class EventType extends AbstractType
 //                    ->orderBy(c.name, 'ASC');
 //                }
             ])
-        ;
+
+            ->add('Location', ChoiceType::class, [
+                'placeholder' => 'Choisir une ville',
+                'required' => false
+                //this is just temp testing of dynamic form
+//                'class' => Location::class,
+//                'label'=> 'Lieu',
+//                'choice_label' => 'name',
+//                'query_builder' => function (EntityRepository $repo){
+//                    return $repo->createQueryBuilder('l')
+//                        ->orderBy('l.name', 'ASC');
+//                }
+            ]);
+
+        $formModifier = function (FormInterface $form, City $city = null){
+            $loctions = null === $city ? [] : $city->getLocations();
+
+
+            //add to the form
+            $form->add('Location', EntityType::class, [
+                'class'=>Location::class,
+                'choices'=>$loctions,
+                'choice_label'=>'name',
+                'placeholder'=>'Choisir un lieu',
+                'label'=>'Lieu'
+            ]);
+        };
+
+        $builder->get('city')->addEventListener(
+          FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier){
+              $city = $event->getForm()->getData();
+              $formModifier($event->getForm()->getParent(), $city);
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
