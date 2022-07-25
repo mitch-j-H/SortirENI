@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block extrastyles %} <link rel="stylesheet" href="{{ asset('css/create.css') }}">{% endblock %}
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{ asset('css/create.css') }}">
+    <link rel="stylesheet" href="{{asset('css/event.css')}}" >
+{% endblock %}
 
 {% block header %}
   Créer un événement

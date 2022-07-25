@@ -1,10 +1,10 @@
 <nav>
     <ul>
         {% if app.user %}
-        <li><a href="{{path('main_home')}}" title="Home">Home</a></li>
-            <li>Welcome {{ app.user.userName }}</li>
-            <li><a href="{{path('participant_profile')}}"  title="Profile">My profile</a></li>
-            <li><a href="{{path('participant_logout')}}"  title="Logout">Logout</a></li>
+        <li><a href="{{path('main_home')}}" title="Home">Accueil</a></li>
+            <li>Bienvenu {{ app.user.userName }}</li>
+            <li><a href="{{path('participant_profile')}}"  title="Profile">Mon profil</a></li>
+            <li><a href="{{path('participant_logout')}}"  title="Logout">Se déconnecter</a></li>
         {% endif %}
     </ul>
 </nav>

@@ -4,13 +4,19 @@
     <link rel="stylesheet" href="{{asset('css/profile.css')}}" >
 {% endblock %}
 
-{% block header %}Modifier mon profil{% endblock %}
+{% block header %}
+    {% if(participant.id == app.user.id) %}
+        Mon profil
+    {% else %}
+        Profil de {{ participant.userName }}
+    {% endif %}
+{% endblock %}
 
 {% block body %}
     <div class="profile">
         <div class="profile-img-container">
-            {% if app.user.image %}
-                <img id="profile-img" src="{{ asset('uploads/images/' ~ app.user.image) }}" alt=""{{ app.user.image }}>
+            {% if participant.image %}
+                <img id="profile-img" src="{{ asset('uploads/images/' ~ participant.image) }}" alt=""{{ participant.image }}>
             {% else %}
                 <div>
                     <img src="{{ asset('uploads/images/avatar-62d7d06dc443b.jpg') }}" alt="default image" }}>
@@ -19,44 +25,46 @@
         </div>
         <div class="profile-form">
             <div class="profile-input">
-                <div>
-                    <div>Pseudo</div>
-                    <div>{{ app.user.userName }}</div>
+                <div class="profile-row">
+                    <div class="profile-label">Pseudo : </div>
+                    {{ form_widget(profileForm.userName, {'attr':{'disabled':''}}) }}
                 </div>
-                <div>
-                    <div>Prénom</div>
-                    <div>{{ app.user.firstName }}</div>
+                <div class="profile-row">
+                    <div class="profile-label">Prénom : </div>
+                    {{ form_widget(profileForm.firstName, {'attr':{'disabled':''}}) }}
                 </div>
-                <div>
-                    <div>Nom</div>
-                    <div>{{ app.user.surname }}</div>
+                <div class="profile-row">
+                    <div class="profile-label">Nom : </div>
+                    {{ form_widget(profileForm.surname, {'attr':{'disabled':''}}) }}
                 </div>
-                <div>
-                    <div>Téléphone</div>
-                    <div>{{ app.user.telephone }}</div>
+                <div class="profile-row">
+                    <div class="profile-label">Téléphone : </div>
+                    {{ form_widget(profileForm.telephone, {'attr':{'disabled':''}}) }}
                 </div>
-                <div>
-                    <div>Email</div>
-                    <div>{{ app.user.email }}</div>
+                <div class="profile-row">
+                    <div class="profile-label">Email : </div>
+                    {{ form_widget(profileForm.email, {'attr':{'disabled':''}}) }}
                 </div>
-                <div>
-                    <div>Campus</div>
-                    <div>{{ app.user.campus.name }}</div>
+                <div class="profile-row">
+                    <div class="profile-label">Campus : </div>
+                    {{ form_widget(profileForm.campus, {'attr':{'disabled':''}}) }}
                 </div>
             </div>
-            <div class="profile-btn">
-                <div class="profile-submit">
-                    <a href="{{ path('participant_profile-update') }}">Modifier</a>
-                </div>
+        {% if(participant.id == app.user.id) %}
+        <div class="profile-btn">
+            <div class="profile-submit">
+                <a id="profile_modify" class="profile-btn" href="{{ path('participant_profile-update') }}">Modifier</a>
+            </div>
+            <div class="profile-submit">
+                <a id="profile_back" class="profile-btn"  href="{{ path('event_list') }}">Retour</a>
             </div>
         </div>
+        {% else %}
+            <div class="profile-btn">
+                <div class="profile-submit">
+                    <a id="profile_back" class="profile-btn"  href="{{ path('event_list') }}">Retour</a>
+                </div>
+            </div>
+        {% endif %}
     </div>
-
-
-
-
-
-
-
-
 {% endblock %}

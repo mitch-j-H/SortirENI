@@ -7,12 +7,6 @@
 {% block header %}Mon profil{% endblock %}
 
 {% block body %}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash flash-{{label}}">{{message}}</div>
-        {% endfor %}
-    {% endfor %}
-
 {{form_start(profileForm)}}
     <div class="profile">
         <div class="profile-img-container">
@@ -25,41 +19,36 @@
             {% endif %}
             <div class="profile-selectImage">
                 <span id="modify">Modifier ma photo</span>
-                {{ form_row(profileForm.image) }}
+                {{ form_widget(profileForm.image) }}
             </div>
-
         </div>
         <div class="profile-form">
             <div class="profile-input">
-                {{ form_row(profileForm.userName) }}
-                {{ form_row(profileForm.firstName) }}
-                {{ form_row(profileForm.surname) }}
-                {{ form_row(profileForm.telephone) }}
-                {{ form_row(profileForm.email) }}
-                <div id="profile-label-campus">Campus : </div>
-                {{ form_row(profileForm.campus, {'attr': {'class': 'test'}}) }}
-
+                <div class="profile-row">
+                    <div class="profile-label">Pseudo : </div>
+                    {{ form_widget(profileForm.userName) }}
+                </div>
+                <div class="profile-row">
+                    <div class="profile-label">Prénom : </div>
+                    {{ form_widget(profileForm.firstName) }}
+                </div>
+                <div class="profile-row">
+                    <div class="profile-label">Nom : </div>
+                    {{ form_widget(profileForm.surname) }}
+                </div>
+                <div class="profile-row">
+                    <div class="profile-label">Téléphone : </div>
+                    {{ form_widget(profileForm.telephone) }}
+                </div>
+                <div class="profile-row">
+                    <div class="profile-label">Email : </div>
+                    {{ form_widget(profileForm.email) }}
+                </div>
+                <div class="profile-row">
+                    <div class="profile-label">Campus : </div>
+                    {{ form_widget(profileForm.campus) }}
+                </div>
             </div>
-            {#
-            <div class="profile-input">
-                {{ form_row(profileForm.firstName) }}
-            </div>
-            <div class="profile-input">
-                {{ form_row(profileForm.surname) }}
-            </div>
-            <div class="profile-input">
-                {{ form_row(profileForm.telephone) }}
-            </div>
-            <div class="profile-input">
-                {{ form_row(profileForm.email) }}
-            </div>
-            <div class="profile-input">
-                {{ form_row(profileForm.campus) }}
-            </div>
-            <div class="profile-input">
-                {{ form_row(profileForm.image) }}
-            </div>
-            #}
             <div class="profile-btn">
                 <div class="profile-submit">
                     {{ form_row(profileForm.submit) }}
@@ -70,13 +59,15 @@
             </div>
         </div>
     </div>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash flash-{{label}}">{{message}}</div>
+        {% endfor %}
+    {% endfor %}
+    <div class="profile-btn">
+        <div class="profile-submit">
+            <a id="profile_back" class="profile-btn"  href="{{ path('participant_profile') }}">Retour</a>
+        </div>
+    </div>
 {{ form_end(profileForm) }}
-
-
-
-
-
-
-
-
 {% endblock %}

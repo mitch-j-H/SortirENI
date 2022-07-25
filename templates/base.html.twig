@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/event.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     <script src="https://kit.fontawesome.com/33c67bf1df.js" crossorigin="anonymous"></script>
     {% block extrastyles %}{% endblock %}
@@ -32,19 +31,19 @@
             </header>
             {% include('inc/nav.html.twig') %}
             <footer>
-                <p>&copy; Sortir.fr {{ "now"|date('Y')}}</p>
+                <p>&copy; Sortir.com {{ "now"|date('Y')}}</p>
             </footer>
         </aside>
         <main>
 
             {# read and display all flash messages #}
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class=" flash flash-{{ label }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
+            {# {% for label, messages in app.flashes %}
+            {% for message in messages %}
+            <div class=" flash flash-{{ label }}">
+                {{ message }}
+            </div>
             {% endfor %}
+            {% endfor %}} #}
 
             <h2 id="main-header">{% block header %}{% endblock %}</h2>
             {% block body %}{% endblock %}

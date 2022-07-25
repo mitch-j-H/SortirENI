@@ -45,8 +45,12 @@ class ParticipantController extends AbstractController
     #[Route(path: '/profile', name: 'profile')]
     public function profile(Request $request, EntityManagerInterface $em): Response
     {
-
+        $participant = $this->getUser();
+        $profileForm = $this->createForm(ProfileType::class, $participant);
+        $profileForm->handleRequest($request);
         return $this->render('participant/profile.html.twig', [
+            'participant' => $participant,
+            'profileForm' => $profileForm->createView()
         ]);
     }
 
@@ -55,7 +59,6 @@ class ParticipantController extends AbstractController
     {
         $participant = $this->getUser();
         $profileForm = $this->createForm(ProfileType::class, $participant);
-
         $profileForm->handleRequest($request);
 
         if($profileForm->isSubmitted() && $profileForm->isValid()) {
@@ -78,7 +81,7 @@ class ParticipantController extends AbstractController
 
             $em->persist($participant);
             $em->flush();
-            $this->addFlash('success', 'Profile has been updated');
+            $this->addFlash('success', 'Profil modifié !');
 
             return $this->redirectToRoute('participant_profile-update');
         }
@@ -93,9 +96,12 @@ class ParticipantController extends AbstractController
         if ($participant == null) {
             throw $this->createNotFoundException("Utilisateur inconnu !");
         }
+        $profileForm = $this->createForm(ProfileType::class, $participant);
+        $profileForm->handleRequest($request);
 
-        return $this->render('participant/participant-profile.html.twig', [
-            'participant' => $participant
+        return $this->render('participant/profile.html.twig', [
+            'participant' => $participant,
+            'profileForm' => $profileForm->createView(),
         ]);
     }
 }
