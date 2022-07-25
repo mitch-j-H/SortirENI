@@ -9,23 +9,28 @@
     use App\Form\EventType;
     use App\Form\FilterEventType;
     use App\Repository\EventRepository;
+    use App\Services\AvailablePlacesInEvent;
+    use App\Services\UpdateStatus;
     use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
     use Symfony\Component\Routing\Annotation\Route;
+    use function PHPUnit\Framework\throwException;
 
 
     #[Route('/events', name: 'event_')]
     class EventController extends AbstractController
     {
         #[Route('', name: 'list')]
-        public function list(EventRepository $eventRepository, Request $request, EventDTO $eventDTO): Response
+        public function list(EventRepository $eventRepository, Request $request, UpdateStatus $updateStatus): Response
         {
-            //todo: prochaine ligne a supprimer quand le filtre fonctionne?
+
+            $updateStatus->updateStatus($eventRepository);
+
+            //FindAll si pas de recherche sinon filterForm change events
             $events = $eventRepository->findAll();
-
-
 
             $EventDTO = new EventDTO();
 
@@ -36,7 +41,6 @@
             {
                 $eventDTO= $filterForm->getData();
                 $events = $eventRepository->findByFilter($eventDTO, $this->getUser());
-
             }
 
             return $this->render('event/list.html.twig', [
@@ -46,9 +50,10 @@
         }
 
         #[Route('/details/{id}', name: 'detail')]
-        public function details(int $id, EventRepository $eventRepository): Response
+        public function details(int $id, EventRepository $eventRepository, UpdateStatus $updateStatus): Response
         {
             $event = $eventRepository->find($id);
+
 
             //todo: creer un service/methode qui permet de calculer le nbre de places restantes (+change le statut)
 
@@ -90,7 +95,7 @@
             }
 
             if($eventForm->get('publish')->isClicked() && $eventForm->isValid()){
-                $event->setStatus('Ouverte');
+                $event->setStatus('ouvert');
 
                 $entityManager->persist($event);
                 $entityManager->flush();
@@ -115,6 +120,12 @@
             //todo: SECURITE : verifier utilisateur en cours est bien le createur de la sortie
 
             $event = $eventRepository->find($id);
+
+            $organiser = $event->getOrganiser();
+
+            if ($organiser != $this->getUser()) {
+                throw new UnauthorizedHttpException('Vous n\'êtes pas le créateur de cette sortie, vous ne pouvez pas la modifier');
+            }
 
             $reason = new Reason();
 
@@ -198,33 +209,5 @@
         }
 
 
-        /*   public function updateStatusFromDateOfTheDayAndAttendence(Event $event){
 
-               $dateOfTheDay = new \DateTime();
-
-               //Nombre d'inscrits
-               $particicipants = $event->getEventAttendence()->count();
-               //capacité
-               $capacityEvent = $event->getCapacity();
-               //places restantes
-               $availablePlaces = $capacityEvent - $particicipants;
-
-               $cutOffDate = $event->getCutOffDate();
-               $StartsAtDate = $event->getStartsAt();
-               if($availablePlaces<=0){
-                   $event->setStatus('fermé');
-               }
-               if($dateOfTheDay>$cutOffDate){
-                   $event->setStatus('fermé');
-               }
-               if($dateOfTheDay<$StartsAtDate){
-                   $event->setStatus('En cours');
-               }
-               if($dateOfTheDay >= (strtotime("+1 month", strtotime($StartsAtDate)))) {
-                   $event->setStatus('Historisé');
-               }else{
-                   $event->setStatus('ouvert');
-               }
-
-           }*/
     }

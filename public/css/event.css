@@ -1,12 +1,12 @@
 table   {
     border-collapse: separate;
     border-spacing: 0 25px;
-    margin: 25px 0;
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
     font-family: 'Asul', sans-serif;
     font-family: 'PT Sans Caption', sans-serif;
+    border: 1px solid black;
 
 }
 tr{
@@ -40,11 +40,10 @@ tr:hover{
 
 }
 
-container{
+#tableEvent{
     background-color: white;
     border-radius: 20px;
     display: flex;
-    margin:2%;
     padding:50px;
     justify-content: center;
 
@@ -95,4 +94,31 @@ article
 }
 .flash-leaveEvent{
     background-color: #F46197;
+}
+
+/*Barre de recherche*/
+#filterBar{
+border:1px solid black;
+    height: 100px;
+    width: 100%;
+display: flex;
+    flex-direction: column;
+    margin:0;
+    color: white;
+    background-color: #302269;
+}
+.bar{
+
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 5px;
+
+}
+button {
+    margin-top: 5px;
+    margin-left:auto;
+    margin-right:auto;
+    width: 150px;
+    height: 100px;
 }
