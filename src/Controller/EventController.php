@@ -63,10 +63,10 @@
 
             $eventForm->handleRequest($request);
             //changer par une methode create status
-            $event->setStatus('ouvert');
+            $event->setStatus('Ouvert');
 
             if($eventForm->get('save')->isClicked() && $eventForm->isValid()){
-                $event->setStatus('Créee');
+                $event->setStatus('Créée');
 
                 $entityManager->persist($event);
                 $entityManager->flush();
