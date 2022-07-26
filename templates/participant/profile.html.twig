@@ -19,7 +19,7 @@
                 <img id="profile-img" src="{{ asset('uploads/images/' ~ participant.image) }}" alt=""{{ participant.image }}>
             {% else %}
                 <div>
-                    <img src="{{ asset('uploads/images/avatar-62d7d06dc443b.jpg') }}" alt="default image" }}>
+                    <img id="profile-img" src="{{ asset('uploads/images/avatar-62d7d06dc443b.jpg') }}" alt="default image" }}>
                 </div>
             {% endif %}
         </div>
@@ -27,27 +27,27 @@
             <div class="profile-input">
                 <div class="profile-row">
                     <div class="profile-label">Pseudo : </div>
-                    {{ form_widget(profileForm.userName, {'attr':{'disabled':''}}) }}
+                    <div class="profile-info">{{ participant.userName }}</div>
                 </div>
                 <div class="profile-row">
                     <div class="profile-label">Prénom : </div>
-                    {{ form_widget(profileForm.firstName, {'attr':{'disabled':''}}) }}
+                    <div class="profile-info">{{ participant.firstName }}</div>
                 </div>
                 <div class="profile-row">
                     <div class="profile-label">Nom : </div>
-                    {{ form_widget(profileForm.surname, {'attr':{'disabled':''}}) }}
+                    <div class="profile-info">{{ participant.surname }}</div>
                 </div>
                 <div class="profile-row">
                     <div class="profile-label">Téléphone : </div>
-                    {{ form_widget(profileForm.telephone, {'attr':{'disabled':''}}) }}
+                    <div class="profile-info">{{ participant.telephone }}</div>
                 </div>
                 <div class="profile-row">
                     <div class="profile-label">Email : </div>
-                    {{ form_widget(profileForm.email, {'attr':{'disabled':''}}) }}
+                    <div class="profile-info">{{ participant.email }}</div>
                 </div>
                 <div class="profile-row">
                     <div class="profile-label">Campus : </div>
-                    {{ form_widget(profileForm.campus, {'attr':{'disabled':''}}) }}
+                    <div class="profile-info">{{ participant.campus.name }}</div>
                 </div>
             </div>
         {% if(participant.id == app.user.id) %}

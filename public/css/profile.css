@@ -1,7 +1,21 @@
 @media screen and (max-width: 500px) {
     .profile {
-        background-color: #e65100;
+
     }
+
+    .profile-btn button, .profile-btn a {
+        width: 80px;
+    }
+
+    .profile-form  {
+        padding: 3% !important;
+    }
+
+    #profile-img {
+        width: 85px !important;
+        height: 85px !important;
+    }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -13,8 +27,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 5%;
-        padding-bottom: 5%;
+        padding-top: 3%;
+        padding-bottom: 3%;
     }
     .profile-form, .profile-img-container{
         display: flex;
@@ -43,9 +57,13 @@
     #profile-img {
         border: 1px solid black;
         border-radius: 80px;
-        max-width: 110px;
-        max-height: 110px;
+        width: 90px;
+        height: 90px;
         margin-bottom: 10px;
+    }
+
+    #profile_image {
+        width: 87px
     }
 
     .profile-selectImage {
@@ -65,31 +83,41 @@
         padding-right: 2%;
     }
 
-    .profile-row  {
+    .profile-row, #profile_password div  {
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
     }
 
-    .profile-label {
+    .profile-label, #profile_password div label {
         margin-right: 5px;
         flex-shrink: 2;
         width: 10%;
-        min-width: 85px;
+        min-width: 106px;
     }
 
-    .profile-input input, select {
+    .profile-info  {
+        margin-bottom: 10px;
+        width: 75%;
+        max-width: 380px;
+        min-width: 160px;
+        height: 17px;
+        border-bottom: 1px solid lightgray;
+        color: gray;
+    }
+
+    .profile-input input, select, .password-field {
         width: 75%;
         max-width: 350px;
         min-width: 100px;
     }
 
-    .profile select {
-        width: 77%;
+    #profile_password div ul {
+        display: none;
     }
 
-    #profile_image {
-        width:85px
+    .profile select {
+        width: 77%;
     }
 
     .profile-btn {
@@ -101,7 +129,7 @@
     .profile-btn button, .profile-btn a {
         display: flex;
         align-items: center;
-        width: 80px;
+        width: 90px;
         height: 30px;
         border-radius: 5px;
         font-weight: 500;
@@ -155,9 +183,9 @@
         display: flex;
         flex-direction: column;
         border-radius: 10px;
-        height: 60%;
+        height: 65%;
         max-height: 700px;
-        min-height: 300px;
+        min-height: 310px;
         padding-top: 2%;
         padding-bottom: 2%;
         box-shadow: 0 0 15px #bcbcbc;
@@ -183,12 +211,12 @@
     #profile-img {
         border: 1px solid black;
         border-radius: 80px;
-        max-width: 150px;
-        max-height: 150px;
+        width: 150px;
+        height: 150px;
     }
 
     #profile_image {
-        width:90px
+        width: 87px
     }
 
     .profile-selectImage {
@@ -208,28 +236,37 @@
         padding-right: 2%;
     }
 
-    .profile-row  {
+    .profile-row, #profile_password div  {
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
     }
 
     .profile-info  {
-        display: flex;
         margin-bottom: 10px;
-    }
-
-    .profile-label {
-        margin-right: 5px;
-        flex-shrink: 2;
-        width: 18%;
-        min-width: 85px;
-    }
-
-    .profile-input input, select {
         width: 75%;
         max-width: 380px;
-        min-width: 170px;
+        min-width: 152px;
+        height: 17px;
+        border-bottom: 1px solid lightgray;
+        color: gray;
+    }
+
+    .profile-label, #profile_password div label {
+        margin-right: 5px;
+        flex-shrink: 2;
+        width: 21%;
+        min-width: 106px;
+    }
+
+    .profile-input input, select, .password-field {
+        width: 71%;
+        max-width: 380px;
+        min-width: 151px;
+    }
+
+    #profile_password div ul {
+        display: none;
     }
 
     .profile select {

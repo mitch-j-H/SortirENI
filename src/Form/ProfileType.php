@@ -94,13 +94,13 @@ class ProfileType extends AbstractType
                     new Email(['message' => 'Veuillez saisir une adresse mail valide'])
                 ]
             ])
-            /*->add('password', RepeatedType::class, [
+            ->add('password', RepeatedType::class, [
+                'required' => false,
                 'type' => PasswordType::class,
-                'invalid_message' => 'passwords do not match',
                 'options' => ['attr' => ['class' => 'password-field']],
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirm your password']
-            ])*/
+                'first_options' => ['label' => 'Mot de passe : ', 'attr' => ['maxlength' => 50, 'required' => false]],
+                'second_options' => ['label' => 'Confirmation : ', 'attr' => ['maxlength' => 50, 'required' => false]]
+            ])
             ->add('image', FileType::class, [
                 'required' => false,
                 'mapped' => false,

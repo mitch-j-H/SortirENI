@@ -25,7 +25,11 @@
                 </a>
                 <h1>Sortir.com</h1>
                 <div class="user-card">
-                    <img src="{{ asset('uploads/images/' ~ app.user.image) }}" id="profile-photo" alt="profile-photo">
+                    {% if(app.user.image) %}
+                        <img src="{{ asset('uploads/images/' ~ app.user.image) }}" id="profile-photo" alt="profile-photo">
+                    {% else %}
+                        <img src="{{ asset('uploads/images/avatar-62d7d06dc443b.jpg') }}" id="profile-photo" alt="default image" }}>
+                    {% endif %}
                     <h2 id="username">{{ app.user.userName }}</h2>
                 </div>
             </header>
