@@ -47,9 +47,12 @@
 
         public function findByFilter(EventDTO $eventDTO, Participant $participant)
         {
-
-
             $query = $this->createQueryBuilder('e');
+
+            //Limitation des requetes !!! = LEFT JOIN
+            $query->leftJoin('e.eventAttendence', 'att')
+            ->addSelect('att');
+
 
             if (!empty($eventDTO->getCampus())) {
                 $query->where('e.campus= :campus')
@@ -65,14 +68,14 @@
             }
             if (!empty($eventDTO->getPastEvent())) {
                 $query->andWhere('e.status= :status')
-                    ->setParameter('status', 'Fermé');
+                    ->setParameter('status', 'passée');
             }
             if (!empty($eventDTO->getEventAttendenceTrue())) {
-                $query->andWhere(':participant MEMBER OF e.eventAttendence')
+                $query->andWhere('att.id =:participant')
                     ->setParameter('participant', $participant);
             }
             if (!empty($eventDTO->getEventAttendenceFalse())) {
-                $query->andWhere(':participant NOT MEMBER OF e.eventAttendence')
+                $query->andWhere('att.id !=:participant')
                     ->setParameter('participant', $participant);
             }
             if(!empty($eventDTO->getFromDate()) && !empty($eventDTO->getToDate()))
@@ -92,8 +95,6 @@
             }
             return $query->getQuery()->getResult();
         }
-
-
 
 //    /**
 //     * @return Event[] Returns an array of Event objects

@@ -1,30 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block extrastyles %}
-    <link rel="stylesheet" href="{{asset('css/event.css')}}" >
+    <link rel="stylesheet" href="{{ asset('css/event.css') }}">
 {% endblock %}
 
 {% block header %}Liste des sorties{% endblock %}
 
 {% block body %}
 
+    Date du jour : {{ dateOfTheDay | date('d-m-Y') }}
+
+
     <div id="filterBar">
         <div class="bar">
-                {{ form_start(filterForm) }}
-                Rechercher une sortie : {{ form_widget(filterForm.name) }}
-                Campus : {{ form_widget(filterForm.campus) }}
-                Entre le : {{ form_widget(filterForm.fromDate) }}
-                et le : {{ form_widget(filterForm.toDate) }}
+            {{ form_start(filterForm) }}
+            Rechercher une sortie : {{ form_widget(filterForm.name) }}
+            Campus : {{ form_widget(filterForm.campus) }}
+            Entre le : {{ form_widget(filterForm.fromDate) }}
+            et le : {{ form_widget(filterForm.toDate) }}
         </div>
         <div class="bar">
-                Sorties dont je suis l'organisateur/trice : {{ form_widget(filterForm.isTheOrganiser) }}
-                Sorties auxquelles je suis inscrit/e : {{ form_widget(filterForm.eventAttendenceTrue) }}
-                Sorties auxquelles je ne suis pas inscrit/e :{{ form_widget(filterForm.eventAttendenceFalse) }}
-                Sorties passées: {{ form_widget(filterForm.pastEvent) }}
+            Sorties dont je suis l'organisateur/trice : {{ form_widget(filterForm.isTheOrganiser) }}
+            Sorties auxquelles je suis inscrit/e : {{ form_widget(filterForm.eventAttendenceTrue) }}
+            Sorties auxquelles je ne suis pas inscrit/e :{{ form_widget(filterForm.eventAttendenceFalse) }}
+            Sorties passées: {{ form_widget(filterForm.pastEvent) }}
         </div>
 
-    <button>Rechercher</button>
-    {{ form_end(filterForm) }}
+        <button>Rechercher</button>
+        {{ form_end(filterForm) }}
     </div>
 
 
@@ -48,60 +51,118 @@
 
             {% for event in events %}
 
-                <tr>
-                    <td>{{ event.name }}</td>
-                    <td>{{ event.startsAt | date('d-m-y à H:i') }}</td>
-                    <td>{{ event.cutOffDate | date('d-m-y') }}</td>
-                    <td>{{ event.eventAttendence | length }}/{{ event.capacity }}</td>
-                    <td>{{ event.status }}</td>
-                    <td>
+
+                {% if event.status != 'Historisée' and event.status!= 'Créée' %}
+
+                        <tr>
+                            <td>{{ event.name }}</td>
+                            <td>{{ event.startsAt | date('d-m-y à H:i') }}</td>
+                            <td>{{ event.cutOffDate | date('d-m-y') }}</td>
+                            <td>{{ event.eventAttendence | length }}/{{ event.capacity }}</td>
+                            <td>{{ event.status }}</td>
+                            <td>
 
 
-                        {% if app.user in event.eventAttendence %}
-                            <i class="fa-solid fa-check" id="checkInscription"></i>
+                                {% if app.user in event.eventAttendence %}
+                                    <i class="fa-solid fa-check" id="checkInscription"></i>
 
-                        {% endif %}
-
-
-                    </td>
-                    <td>{{ event.organiser.username }}</td>
-                    <td>
-                        {% if app.user == event.organiser %}
-
-                            {% if event.reason is null %}
-                                <a href="{{ path('event_detail', {'id': event.id}) }}" title="modifier la sortie">
-
-                                    Modifier </a> -
-                                <a href="{{ path('event_cancel', {'id': event.id}) }}" title="annuler la sortie">
-
-                                    Annuler </a>
-                            {% endif %}
-                            {% if event.reason is not null %}
-                                <a href="{{ path('event_detail', {'id': event.id}) }}" title="modifier la sortie">
-
-                                    Afficher </a> ANNULEE
-                            {% endif %}
-
-                        {% endif %}
-
-                        {% if app.user != event.organiser %}
-                            <a href="{{ path('event_detail', {'id': event.id}) }}" title="voir le détail de la sortie">
-                                Afficher </a> -
-
-                            {% if event.status == 'ouvert' %}
-
-
-                                {% if app.user not in event.eventAttendence %}
-                                    <a href="{{ path('event_participate', {'id': event.id}) }}"> S'inscrire </a>
-                                {% else %}
-                                    <a href="{{ path('event_removeParticipate', {'id': event.id}) }}">Se désister</a
                                 {% endif %}
-                            {% endif %}
 
-                        {% endif %}
 
-                    </td>
-                </tr>
+                            </td>
+                            <td>{{ event.organiser.username }}</td>
+                            <td>
+                                {% if app.user == event.organiser %}
+
+                                    {% if event.reason is null %}
+                                        {% if event.status == 'Créée' %}
+                                            <a href="{{ path('event_detail', {'id': event.id}) }}"
+                                               title="modifier la sortie">
+
+                                                Modifier </a>
+                                            <a href="{{ path('event_cancel', {'id': event.id}) }}"
+                                               title="Supprimer la sortie">
+
+                                                - Supprimer </a>
+                                        {% elseif event.status == 'Ouverte' %}
+                                            <a href="{{ path('event_detail', {'id': event.id}) }}"
+                                               title="afficher la sortie">
+
+                                                Afficher </a>
+
+                                            <a href="{{ path('event_cancel', {'id': event.id}) }}"
+                                               title="Annuler la sortie">
+
+                                                - Annuler </a>
+                                        {% else %}
+                                            <a href="{{ path('event_detail', {'id': event.id}) }}"
+                                               title="afficher la sortie">
+
+                                                Afficher </a>
+
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if event.reason is not null %}
+                                        <a href="{{ path('event_detail', {'id': event.id}) }}"
+                                           title="afficher la sortie">
+
+                                            Afficher </a>
+                                    {% endif %}
+
+                                {% endif %}
+
+                                {% if app.user != event.organiser %}
+                                    <a href="{{ path('event_detail', {'id': event.id}) }}"
+                                       title="voir le détail de la sortie">
+                                        Afficher </a>
+
+                                    {% if event.status == 'Ouverte' %}
+
+
+                                        {% if app.user not in event.eventAttendence %}
+                                            <a href="{{ path('event_participate', {'id': event.id}) }}"> S'inscrire </a>
+                                        {% else %}
+                                            <a href="{{ path('event_removeParticipate', {'id': event.id}) }}">Se
+                                                désister</a
+                                        {% endif %}
+                                    {% endif %}
+
+                                {% endif %}
+
+                            </td>
+                        </tr>
+
+{% elseif event.status=='Créée' and app.user==event.organiser %}
+    <tr>
+        <td>{{ event.name }}</td>
+        <td>{{ event.startsAt | date('d-m-y à H:i') }}</td>
+        <td>{{ event.cutOffDate | date('d-m-y') }}</td>
+        <td>{{ event.eventAttendence | length }}/{{ event.capacity }}</td>
+        <td>{{ event.status }}</td>
+        <td>
+
+
+            {% if app.user in event.eventAttendence %}
+                <i class="fa-solid fa-check" id="checkInscription"></i>
+
+            {% endif %}
+
+
+        </td>
+        <td>{{ event.organiser.username }}</td>
+        <td>
+
+                        <a href="{{ path('event_detail', {'id': event.id}) }}"
+                           title="modifier la sortie">
+
+                            Modifier </a>
+                        <a href="{{ path('event_cancel', {'id': event.id}) }}"
+                           title="Supprimer la sortie"></a>
+
+        </td>
+    </tr>
+                {% endif %}
+
             {% endfor %}
             </tbody>
 

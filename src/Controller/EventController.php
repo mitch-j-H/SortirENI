@@ -26,26 +26,23 @@
         #[Route('', name: 'list')]
         public function list(EventRepository $eventRepository, Request $request, UpdateStatus $updateStatus): Response
         {
+            $dateOfTheDay = new \DateTime();
 
             $updateStatus->updateStatus($eventRepository);
 
-            //FindAll si pas de recherche sinon filterForm change events
-            $events = $eventRepository->findAll();
 
             $EventDTO = new EventDTO();
 
             $filterForm = $this->createForm(FilterEventType::class, $EventDTO);
             $filterForm->handleRequest($request);
 
-            if($filterForm->isSubmitted() )
-            {
-                $eventDTO= $filterForm->getData();
-                $events = $eventRepository->findByFilter($eventDTO, $this->getUser());
-            }
+            $eventDTO = $filterForm->getData();
+            $events = $eventRepository->findByFilter($eventDTO, $this->getUser());
 
             return $this->render('event/list.html.twig', [
                 'events' => $events,
-                'filterForm' => $filterForm->createView()
+                'filterForm' => $filterForm->createView(),
+                'dateOfTheDay' => $dateOfTheDay
             ]);
         }
 
@@ -55,8 +52,6 @@
             $event = $eventRepository->find($id);
 
 
-            //todo: creer un service/methode qui permet de calculer le nbre de places restantes (+change le statut)
-
             //Nombre d'inscrits
             $particicipants = $event->getEventAttendence()->count();
             //capacité
@@ -65,7 +60,6 @@
             $availablePlaces = $capacityEvent - $particicipants;
 
             $event = $eventRepository->find($id);
-
 
             return $this->render('event/detail.html.twig', [
                 "event" => $event,
@@ -85,17 +79,17 @@
 
             $eventForm->handleRequest($request);
             //changer par une methode create status fonction du bouton de validation
-            $event->setStatus('ouvert');
+            $event->setStatus('Ouverte');
 
-            if($eventForm->get('save')->isClicked() && $eventForm->isValid()){
+            if ($eventForm->get('save')->isClicked() && $eventForm->isValid()) {
                 $event->setStatus('Créee');
 
                 $entityManager->persist($event);
                 $entityManager->flush();
             }
 
-            if($eventForm->get('publish')->isClicked() && $eventForm->isValid()){
-                $event->setStatus('ouvert');
+            if ($eventForm->get('publish')->isClicked() && $eventForm->isValid()) {
+                $event->setStatus('Ouverte');
 
                 $entityManager->persist($event);
                 $entityManager->flush();
@@ -105,7 +99,6 @@
 
                 $entityManager->persist($event);
                 $entityManager->flush();
-
             }
 
             return $this->render('event/create.html.twig', [
@@ -116,8 +109,6 @@
         #[Route ("/cancelEvent/{id}", name: "cancel")]
         public function cancelEvent(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager, Request $request): Response
         {
-
-            //todo: SECURITE : verifier utilisateur en cours est bien le createur de la sortie
 
             $event = $eventRepository->find($id);
 
@@ -133,7 +124,6 @@
 
             $CancelEventForm->handleRequest($request);
 
-
             if ($CancelEventForm->isSubmitted() && $CancelEventForm->isValid()) {
 
                 $event->setReason($reason);
@@ -146,7 +136,6 @@
                 'event' => $event
             ]);
         }
-
 
         #[Route ("/addParticipate/{id}", name: "participate")]
         public function addParticipant(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager): Response
@@ -164,6 +153,10 @@
             $capacityEvent = $event->getCapacity();
             //places restantes
             $availablePlaces = $capacityEvent - $particicipants;
+
+            if ($availablePlaces = 0) {
+                $event->setStatus('Cloturée');
+            }
 
             $entityManager->persist($event);
             $entityManager->flush();
@@ -196,6 +189,9 @@
             //places restantes
             $availablePlaces = $capacityEvent - $particicipants;
 
+           if ($availablePlaces > 0) {
+                $event->setStatus('Ouverte');
+            }
             $entityManager->persist($event);
             $entityManager->flush();
 
@@ -207,7 +203,5 @@
 
             ]);
         }
-
-
 
     }
