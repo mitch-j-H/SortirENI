@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\City;
 use App\Entity\Location;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +38,16 @@ class LocationRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllByCity(int $city):array
+    {
+        $queryBuilder = $this->createQueryBuilder('l');
+        $queryBuilder->andWhere("l.city= $city");
+        $queryBuilder->addOrderBy('l.name', 'ASC');
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
     }
 
 //    /**

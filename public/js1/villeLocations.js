@@ -1,66 +1,33 @@
 window.onload = () => {
     // look for locations in city
-
     let location = document.querySelector("#event_city");
-
-
 
     location.addEventListener("change", function(){
         //select form and row plus value selected
         let form = this.closest("form");
-        let data1 = this.name + "=" + this.value;
+        let data1 = /*this.name + "=" + */this.value;
 
         console.log(data1);
-        console.log(form.getAttribute("method"));
 
-        //jus
-        // send using ajax
-        fetch(form.action, {
-            method: form.getAttribute("method"),
-            body: data1,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-        })
-            .then(response => response.text())
-            .then(html => {
-                // console.log();
-                let content = document.createElement("html");
-                content.innerHTML = html;
-                let nouveauSelect = content.querySelector("#event_city");
-                document.querySelector("#event_Location").replaceWith(nouveauSelect);
+        //fetch using get request
+        fetch("http://localhost/SortirENI/public/request/locations/" + data1)
+            .then(response => response.json())
+            .then((data) => {
+                let locationSelect = document.querySelector("#event_Location");
+                locationSelect.innerHTML = "";
+                //make each option and insert into DOM
+                for(let i = 0; i < data.length; i++){
+                    let option = document.createElement("option")
+                    option.textContent = data[i].name;
+                    option.setAttribute("value", data[i].id);
+                    option.dataset.streetAddress = data[i].street_address;
+                    option.dataset.latitude = data[i].latitude;
+                    option.dataset.longitude = data[i].longitude;
+                    locationSelect.append(option)
+                }
             })
             .catch(error => {
                 console.log(error);
             })
     });
 }
-
-
-//
-//AJAX PAR LES DOC
-
-// var $city = $("#event_city");
-// // When city gets selected ...
-// console.log($city);
-// $city.change(function() {
-//     // ... retrieve the corresponding form.
-//     var $form = $(this).closest('form');
-//     // Simulate form data, but only include the selected sport value.
-//     var data = {};
-//     data[$city.attr('name')] = $city.val();
-//     // Submit data via AJAX to the form's action path.
-//     $.ajax({
-//         url : $form.attr('action'),
-//         type: $form.attr('method'),
-//         data : data,
-//         complete: function(html) {
-//             // Replace current position field ...
-//             $('#meetup_position').replaceWith(
-//                 // ... with the returned one from the AJAX response.
-//                 $(html.responseText).find('#event_location')
-//             );
-//             // Position field now displays the appropriate positions.
-//         }
-//     });
-// });

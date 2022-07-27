@@ -66,7 +66,7 @@
             $event->setStatus('Ouvert');
 
             if($eventForm->get('save')->isClicked() && $eventForm->isValid()){
-                $event->setStatus('Créée');
+                $event->setStatus('En crèation');
 
                 $entityManager->persist($event);
                 $entityManager->flush();
