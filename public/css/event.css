@@ -306,3 +306,16 @@ h4{
     margin-right: 2%;
     font-size: 1.5em;
 }
+.motifAnnulation{
+    width:50%;
+    bottom: 0;
+    position: absolute;
+    border:1px solid darkorange;
+    font-size:1em;
+    color: white;
+    background-color: darkorange;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
+}

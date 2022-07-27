@@ -8,7 +8,7 @@
     <div class="eventName">  {{ event.name }} </div>
     <article>
         {% if event.reason is not null %}
-            <div class="motifAnnulation"> La sortie est annulée : {{ event.reason.cancelReason }} </div>
+            <div class="motifAnnulation"><i class="fa-solid fa-triangle-exclamation" style="font-size: 3em"></i> <h1> La sortie est annulée : {{ event.reason.cancelReason }}   </h1> </div>
         {% endif %}
 
         <div class="detailEvent">
