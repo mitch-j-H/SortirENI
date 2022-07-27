@@ -106,6 +106,41 @@
             ]);
         }
 
+        #[Route('/modify/{id}', name: 'modify')]
+        public function modify(Request $request, EntityManagerInterface $entityManager, int $id, EventRepository $eventRepository): Response
+        {
+            //pull event by id
+            $event = $eventRepository->find($id);
+
+            //verify correct user
+            $organiser = $event->getOrganiser();
+            if ($organiser != $this->getUser()) {
+                throw new UnauthorizedHttpException('Vous n\'êtes pas le créateur de cette sortie, vous ne pouvez pas la modifier');
+            }
+
+            //build form
+            $eventForm = $this->createForm(EventType::class, $event);
+            $eventForm->handleRequest($request);
+
+            //validate form
+            if ($eventForm->isSubmitted() && $eventForm->isValid()) {
+
+                //pull form modif and change event object
+                $event = $eventForm->getData();
+                //update DB
+                $entityManager->persist($event);
+                $entityManager->flush();
+                //redirect to the page details of the object
+                return $this->redirectToRoute('event_detail', ['id'=>$event->getid()]);
+            }
+
+
+            return $this->render('event/modify.html.twig', [
+                'eventForm' => $eventForm->createView()
+//                'event' => $event
+            ]);
+        }
+
         #[Route ("/cancelEvent/{id}", name: "cancel")]
         public function cancelEvent(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager, Request $request): Response
         {
