@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -129,68 +130,76 @@ class EventType extends AbstractType
             ->add('addLocale', SubmitType::class, [
                 'label' => 'Ajouter Lieu',
                 'attr' => ['class' => 'addCity']
-            ]);
+            ])
+//            ->add('NewLocation', CollectionType::class, [
+//                'entry_type' => LocationType::class,
+//                'entry_options' => ['label' => false],
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'by_reference' => false
+//            ])
+            ;
 
             //adding event listeners
 //        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'));
+//        $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'));
     }
 
-    protected function addElementLocation(FormInterface $form, City $city = null){
-        //adding ville element
-        $form->add('City', EntityType::class, [
-                'class'=>City::class,
-                'choices'=>$city,
-                'choice_label'=>'name',
-                'placeholder'=>'Choisir une ville',
-                'label'=>'Ville'
-            ]);
-
-        //locations empty unless there is a city selected
-        $locations = array();
-
-        //if city selected find associated locations
-        if($city)
-        {
-            $locations = $this->locationRepository->findAllByCity($city);
-        }
-
-        //add the locations to the select
-        $form->add('Locations', EntityType::class, [
-           'class' => Location::class,
-           'choices'=>$locations,
-            'choice_label'=>'name',
-            'placeholder'=>'Choisir un lieu',
-            'label'=>'Lieu'
-        ]);
-    }
+//    protected function addElementLocation(FormInterface $form, City $city = null){
+//        //adding ville element
+//        $form->add('City', EntityType::class, [
+//                'class'=>City::class,
+//                'choices'=>$city,
+//                'choice_label'=>'name',
+//                'placeholder'=>'Choisir une ville',
+//                'label'=>'Ville'
+//            ]);
+//
+//        //locations empty unless there is a city selected
+//        $locations = array();
+//
+//        //if city selected find associated locations
+//        if($city)
+//        {
+//            $locations = $this->locationRepository->findAllByCity($city);
+//        }
+//
+//        //add the locations to the select
+//        $form->add('Locations', EntityType::class, [
+//           'class' => Location::class,
+//           'choices'=>$locations,
+//            'choice_label'=>'name',
+//            'placeholder'=>'Choisir un lieu',
+//            'label'=>'Lieu'
+//        ]);
+//    }
 //error running code on
-    function onPreSubmit(FormEvent $event) {
-        $form = $event->getForm();
-        $data = $event->getData();
-
-        // Search for selected City and convert it into an Entity
-        $city = $this->cityRepository->find($data);
-
-        $form->add('city', EntityType::class,[
-            'class'=>City::class,
-            'choices'=>$city,
-            'choice_label'=>'name',
-            'placeholder'=>'Choisir une ville',
-            'label'=>'Ville'
-        ]);
-    }
+//    function onPreSubmit(FormEvent $event) {
+//        $form = $event->getForm();
+//        $data = $event->getData();
+//
+//        // Search for selected City and convert it into an Entity
+//        $city = $this->cityRepository->find($data);
+//
+//        $form->add('city', EntityType::class,[
+//            'class'=>City::class,
+//            'choices'=>$city,
+//            'choice_label'=>'name',
+//            'placeholder'=>'Choisir une ville',
+//            'label'=>'Ville'
+//        ]);
+//    }
 
     //Temp removing this function to facilitate writting
-    function onPreSetData(FormEvent $event) {
-        $person = $event->getData();
-        $form = $event->getForm();
-
-        // When you create a new event, the City is always empty
-        $city = $person->getLocation() ? $person->getLocation() : null;
-
-        $this->addElementLocation($form, $city);
-    }
+//    function onPreSetData(FormEvent $event) {
+//        $person = $event->getData();
+//        $form = $event->getForm();
+//
+//        // When you create a new event, the City is always empty
+//        $city = $person->getLocation() ? $person->getLocation() : null;
+//
+//        $this->addElementLocation($form, $city);
+//    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\City;
 use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,9 +19,9 @@ class LocationType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label'=>'Nom du lieu'])
             ->add('streetAddress', TextType::class, ['label'=>'Adresse'])
-            ->add('latitude')
+            ->add('latitude', NumberType::class)
             ->add('city', City::class)
-            ->add('longitude')
+            ->add('longitude', NumberType::class)
 
         ;
     }

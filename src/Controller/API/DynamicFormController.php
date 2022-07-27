@@ -26,6 +26,7 @@ class DynamicFormController extends AbstractController
                 "id" => $location->getId(),
                 "name" => $location->getName(),
                 "street_address" => $location->getStreetAddress(),
+                "postcode" => $location->getCity()->getPostcode(),
                 "latitude" => $location->getLatitude(),
                 "longitude" => $location->getLongitude()
             );
