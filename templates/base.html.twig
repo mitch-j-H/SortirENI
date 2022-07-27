@@ -41,13 +41,13 @@
         <main>
 
             {# read and display all flash messages #}
-            {# {% for label, messages in app.flashes %}
-            {% for message in messages %}
-            <div class=" flash flash-{{ label }}">
-                {{ message }}
-            </div>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class=" flash flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
             {% endfor %}
-            {% endfor %}} #}
 
             <h2 id="main-header">{% block header %}{% endblock %}</h2>
             {% block body %}{% endblock %}

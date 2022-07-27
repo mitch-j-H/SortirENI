@@ -21,7 +21,7 @@
             $builder
                 //Barre de recherche
                 ->add('name', TextType::class, [
-                    'label' => 'nom de la sortie',
+                    'label' => 'Nom de la sortie :',
                     'required' => false,
                     'empty_data' => '',
                     'attr' => ['placeholder' => 'Rechercher']
@@ -29,7 +29,7 @@
                 ->add('campus', EntityType::class, [
                     'required' => false,
                     'class' => Campus::class,
-                    'label' => 'Campus',
+                    'label' => 'Campus :',
                     'choice_label' => 'name',
                     'query_builder' => function (EntityRepository $repo) {
                         return $repo->createQueryBuilder('c')

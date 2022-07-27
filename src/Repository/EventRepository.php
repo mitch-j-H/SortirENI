@@ -68,7 +68,7 @@
             }
             if (!empty($eventDTO->getPastEvent())) {
                 $query->andWhere('e.status= :status')
-                    ->setParameter('status', 'passée');
+                    ->setParameter('status', 'Terminée');
             }
             if (!empty($eventDTO->getEventAttendenceTrue())) {
                 $query->andWhere('att.id =:participant')

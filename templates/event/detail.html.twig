@@ -1,51 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block extrastyles %}
-    <link rel="stylesheet" href="{{asset('css/event.css')}}" >
+    <link rel="stylesheet" href="{{ asset('css/event.css') }}">
 {% endblock %}
 
 {% block body %}
-
+    <div class="eventName">  {{ event.name }} </div>
     <article>
-        <h2>  {{ event.name }} </h2>
-
         {% if event.reason is not null %}
-            <p> La sortie est annulée : {{ event.reason.cancelReason }} </p>
+            <div class="motifAnnulation"> La sortie est annulée : {{ event.reason.cancelReason }} </div>
         {% endif %}
-        <div><h3> Date et heure de la sortie : </h3>
-            <p>{{ event.startsAt | date('d-m-y à H:i') }}</p></div>
-        <div><h3>Date limite d'inscription :</h3>
-            <p> {{ event.cutOffDate | date('d-m-y') }}</p></div>
-        <div><h3>Nombre de places : </h3>
-            <p>{{ availablePlaces }}</p></div>
-        <div><h3>Description et infos : </h3>
-            <p>{{ event.eventInfo }}</p></div>
-        <div><h3>Durée :</h3>
-            <p>{{ event.duration }} minutes</p></div>
-        <div><h3>Campus :</h3>
-            <p> {{ event.Campus.name }}</p></div>
-        <div><h3>Lieu :</h3>
-            <p>{{ event.Location.name }}</p></div>
-        <div><h3>Rue :</h3>
-            <p>{{ event.Location.streetAddress }}</p></div>
 
-        <div><h3>Code postal :</h3>
-            <p>{{ event.Location.city.postCode }}</p></div>
-        <div><h3>Ville :</h3>
-            <p> {{ event.Location.city.name }}</p></div>
-        <div><h3>Latitude :</h3>
-            <p>{{ event.Location.latitude }} </p></div>
-        <div><h3>Longitude :</h3>
-            <p>{{ event.Location.longitude }}</p></div>
+        <div class="detailEvent">
+            <h2><i class="fa-solid fa-circle-info" style="color:#23A6D5FF"></i></h2>
+            <h3>Nombre de places : </h3>
+            <p>{{ availablePlaces }}</p>
+            <h3>Description et infos : </h3>
+            <p>{{ event.eventInfo }}</p>
+            <h3>Campus :</h3>
+            <p> {{ event.Campus.name }}</p>
+            <h3> Etat :</h3>
+            <p>{{ event.status }}</p>
+        </div>
 
-        <div><h3> Etat :</h3>
-            <p>{{ event.status }}</p></div>
+
+        <div class="detailEvent">
+            <h2><i class="fa-solid fa-calendar-check" style="color:#E73C7EFF"></i></h2>
+            <h3> Date et heure de la sortie : </h3>
+            <p>{{ event.startsAt | date('d-m-y à H:i') }}</p>
+            <h3>Date limite d'inscription :</h3>
+            <p> {{ event.cutOffDate | date('d-m-y') }}</p>
+            <h3>Durée :</h3>
+            <p>{{ event.duration }} minutes</p>
+            <h3><i class="fa-solid fa-location-dot"></i> Coordonnées géographiques : </h3>
+            <p>{{ event.Location.latitude }} / {{ event.Location.longitude }}</p>
+        </div>
+
+        <div class="detailEvent">
+            <h2><i class="fa-solid fa-mountain-city" style="color:#23D5AB"></i></h2>
+            <h3>Lieu :</h3>
+            <p>{{ event.Location.name }}</p>
+            <h3>Rue :</h3>
+            <p>{{ event.Location.streetAddress }}</p>
+            <h3>Code postal :</h3>
+            <p>{{ event.Location.city.postCode }}</p>
+            <h3>Ville :</h3>
+            <p> {{ event.Location.city.name }}</p>
+
+
+        </div>
 
     </article>
     <article>
-        <h3>Participants Inscrits :</h3>
 
-        <table>
+        <h4>Participants Inscrits :</h4>
+
+        <table class="tableParticipants">
+
 
             <thead>
             <tr>
@@ -56,10 +67,12 @@
 
             <tbody>
             {% for e in event.eventAttendence %}
-                <tr>
-                    <td>{{ e.firstname }}</td>
-                    <td>{{ e.surname }}</td>
+
+                <tr style="height: 20px">
+                    <td><a href="{{ path('participant_profile', {'id': e.id}) }}">{{ e.firstname }} </a></td>
+                    <td><a href="{{ path('participant_profile', {'id': e.id}) }}">{{ e.surname }} </a></td>
                 </tr>
+
             {% endfor %}
             </tbody>
 

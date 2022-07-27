@@ -4,39 +4,36 @@
     <link rel="stylesheet" href="{{ asset('css/event.css') }}">
 {% endblock %}
 
-{% block header %}Liste des sorties{% endblock %}
-
 {% block body %}
 
-    Date du jour : {{ dateOfTheDay | date('d-m-Y') }}
+    <div class="dateOfTheDay"> <i class="fa-solid fa-clock"></i> {{ dateOfTheDay | date('d-m-Y') }}</div>
 
 
     <div id="filterBar">
-        <div class="bar">
+
+        <div id="bar1">
             {{ form_start(filterForm) }}
-            Rechercher une sortie : {{ form_widget(filterForm.name) }}
-            Campus : {{ form_widget(filterForm.campus) }}
-            Entre le : {{ form_widget(filterForm.fromDate) }}
-            et le : {{ form_widget(filterForm.toDate) }}
-        </div>
-        <div class="bar">
-            Sorties dont je suis l'organisateur/trice : {{ form_widget(filterForm.isTheOrganiser) }}
-            Sorties auxquelles je suis inscrit/e : {{ form_widget(filterForm.eventAttendenceTrue) }}
-            Sorties auxquelles je ne suis pas inscrit/e :{{ form_widget(filterForm.eventAttendenceFalse) }}
-            Sorties passées: {{ form_widget(filterForm.pastEvent) }}
+
+            <div class="inputGroup">{{ form_label(filterForm.name) }} {{ form_widget(filterForm.name) }} </div>
+            <div class="inputGroup">{{ form_label(filterForm.campus) }} {{ form_widget(filterForm.campus) }}</div>
+            <div class="inputGroup">{{ form_label(filterForm.fromDate) }} {{ form_widget(filterForm.fromDate) }}</div>
+            <div class="inputGroup"> {{ form_label(filterForm.toDate) }} {{ form_widget(filterForm.toDate) }}</div>
         </div>
 
-        <button>Rechercher</button>
+
+        <button id="filterButton">Rechercher</button>
+        <div id="bar2">
+            <div class="inputGroup">{{ form_widget(filterForm.isTheOrganiser) }}{{ form_label(filterForm.isTheOrganiser) }}</div>
+            <div class="inputGroup">{{ form_widget(filterForm.eventAttendenceTrue) }}{{ form_label(filterForm.eventAttendenceTrue) }} </div>
+            <div class="inputGroup">{{ form_widget(filterForm.eventAttendenceFalse) }}{{ form_label(filterForm.eventAttendenceFalse) }} </div>
+            <div class="inputGroup">{{ form_widget(filterForm.pastEvent) }} {{ form_label(filterForm.pastEvent) }} </div>
+        </div>
         {{ form_end(filterForm) }}
     </div>
 
-
-
-
-
     <div id="tableEvent">
 
-        <table>
+        <table  style="display: block; height: 500px; overflow-y: auto">
             <thead>
             <td>Nom de la sortie</td>
             <td>Date de la sortie</td>
@@ -52,7 +49,7 @@
             {% for event in events %}
 
 
-                {% if event.status != 'Historisée' and event.status!= 'Créée' %}
+                {% if event.status != 'Historisée' and event.status!= 'En création' %}
 
                         <tr>
                             <td>{{ event.name }}</td>
@@ -70,17 +67,17 @@
 
 
                             </td>
-                            <td>{{ event.organiser.username }}</td>
+                            <td><a href="{{ path('participant_profile', {'id': event.organiser.id}) }}">{{ event.organiser.username }}</a></td>
                             <td>
                                 {% if app.user == event.organiser %}
 
                                     {% if event.reason is null %}
-                                        {% if event.status == 'Créée' %}
+                                        {% if event.status == 'En création' %}
                                             <a href="{{ path('event_detail', {'id': event.id}) }}"
                                                title="modifier la sortie">
 
                                                 Modifier </a>
-                                            <a href="{{ path('event_cancel', {'id': event.id}) }}"
+                                            <a href="{{ path('event_removeEvent', {'id': event.id}) }}"
                                                title="Supprimer la sortie">
 
                                                 - Supprimer </a>
@@ -132,7 +129,7 @@
                             </td>
                         </tr>
 
-{% elseif event.status=='Créée' and app.user==event.organiser %}
+{% elseif event.status=='En création' and app.user==event.organiser %}
     <tr>
         <td>{{ event.name }}</td>
         <td>{{ event.startsAt | date('d-m-y à H:i') }}</td>
@@ -152,12 +149,12 @@
         <td>{{ event.organiser.username }}</td>
         <td>
 
-                        <a href="{{ path('event_detail', {'id': event.id}) }}"
+                        <a href="{{ path('event_modify', {'id': event.id}) }}"
                            title="modifier la sortie">
 
                             Modifier </a>
-                        <a href="{{ path('event_cancel', {'id': event.id}) }}"
-                           title="Supprimer la sortie"></a>
+                        <a href="{{ path('event_removeEvent', {'id': event.id}) }}"
+                           title="Supprimer la sortie"> Supprimer</a>
 
         </td>
     </tr>
@@ -170,7 +167,7 @@
     </div>
 
     <div>
-        <button><a href="{{ path('event_create') }}" title="créer une sortie">Créer une sortie</a></button>
+        <a href="{{ path('event_create') }}" title="créer une sortie"><button id="buttonCreateEvent">Créer une sortie</button></a>
     </div>
 
 {% endblock %}
