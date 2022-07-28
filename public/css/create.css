@@ -36,3 +36,37 @@ input, select, textarea {
     gap: 12rem;
     margin: 15px;
 }
+
+.modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: 250ms opacity ease-in;
+}
+
+.modal__container {
+    background-color: white;
+    width: 26rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+/*p {*/
+/*    line-height: 1.5rem;*/
+/*    !*border-top: 1px solid black;*!*/
+/*    padding: 1rem 0;*/
+/*}*/
+
+/*make modal visible*/
+.modal-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
