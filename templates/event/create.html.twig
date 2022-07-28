@@ -33,7 +33,7 @@
       <div class="city-box">
           {{ form_label(eventForm.Location) }}
           {{ form_widget(eventForm.Location) }}
-          <button id = "showModal">Ajouter Lieu</button>
+          <button id = "showModal" class="bottom-button">Ajouter Lieu</button>
       </div>
         {{ form_label(eventForm.city) }}
         {{ form_widget(eventForm.city) }}
@@ -53,7 +53,7 @@
   </div>
     <div class="modal" id="modal">
         <div class="modal__container">
-            <button type="button" id="close" data-bs-dismiss="modal" aria-label="Close">close</button>
+            <button type="button" id="close" class="bottom-button">Fermer</button>
             <p>Ajouter un lieu</p>
         </div>
     </div>

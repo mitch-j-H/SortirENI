@@ -44,7 +44,7 @@ class EventType extends AbstractType
                 'input_format' => 'dd:MM:YYYY hh:mm'
             ])
             ->add('cutOffDate', DateType::class, ['html5'=>true, 'widget'=> 'single_text', 'label'=>'Date limite d inscription :'])
-            ->add('duration', IntegerType::class, ['label'=>'Durée :'])
+            ->add('duration', IntegerType::class, ['label'=>'Durée :', 'attr'=>['placeholder'=>'en minutes']])
             ->add('capacity', NumberType::class, [
                 'required'=> true,
                 'label'=>'Nombre de places :',

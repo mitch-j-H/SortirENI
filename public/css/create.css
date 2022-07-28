@@ -1,7 +1,7 @@
 form {
     display: flex;
     flex-direction: column;
-    border: #302269 solid 2px;
+    border: #302269 solid 5px;
     border-radius: 10px;
 }
 
@@ -63,4 +63,25 @@ input, select, textarea {
 .modal-visible {
     opacity: 1;
     pointer-events: auto;
+}
+
+.bottom-button{
+    margin-top: -1px;
+    border: 5px solid #06A77D;
+    height: 50px;
+    width: 100px;
+    background-color: #06A77D;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+#showModal {
+    width: 70px;
+}
+
+#close {
+    width: 60px;
+    padding-left: 2px;
 }
