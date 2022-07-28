@@ -14,25 +14,35 @@
     {{ form_start(eventForm) }}
   <div class="form-main">
     <div class="column-left">
-      {{ form_widget(eventForm.name) }}
-      {{ form_widget(eventForm.startsAt) }}
-      {{ form_widget(eventForm.cutOffDate) }}
-      {{ form_widget(eventForm.capacity) }}
-      {{ form_widget(eventForm.duration) }}
-      {{ form_widget(eventForm.eventInfo) }}
+        {{ form_label(eventForm.name) }}
+        {{ form_widget(eventForm.name) }}
+        {{ form_label(eventForm.startsAt) }}
+        {{ form_widget(eventForm.startsAt) }}
+        {{ form_label(eventForm.cutOffDate) }}
+        {{ form_widget(eventForm.cutOffDate) }}
+        {{ form_label(eventForm.capacity) }}
+        {{ form_widget(eventForm.capacity) }}
+        {{ form_label(eventForm.duration) }}
+        {{ form_widget(eventForm.duration) }}
+        {{ form_label(eventForm.eventInfo) }}
+        {{ form_widget(eventForm.eventInfo) }}
     </div>
     <div class="column-right">
+        {{ form_label(eventForm.campus) }}
         {{ form_widget(eventForm.campus) }}
-{#      <p>Campus : {{ app.user.campus.name }}</p>#}
       <div class="city-box">
-        {{ form_widget(eventForm.Location) }}
-        {{ form_widget(eventForm.addLocale) }}
+          {{ form_label(eventForm.Location) }}
+          {{ form_widget(eventForm.Location) }}
+          <button id = "showModal">Ajouter Lieu</button>
       </div>
-      {{ form_widget(eventForm.city) }}
-      <p>Rue : TODO ajx request info</p>
-      <p>Code Postal : TODO ajx request info</p>
-      {{ form_widget(eventForm.latitude) }}
-      {{ form_widget(eventForm.longitude) }}
+        {{ form_label(eventForm.city) }}
+        {{ form_widget(eventForm.city) }}
+        <p id="rue"></p>
+        <p id="codePostal"></p>
+        {{ form_label(eventForm.latitude) }}
+        {{ form_widget(eventForm.latitude) }}
+        {{ form_label(eventForm.longitude) }}
+        {{ form_widget(eventForm.longitude) }}
     </div>
   </div>
   <div class="button-group">
@@ -41,5 +51,17 @@
     {{ form_widget(eventForm.publish) }}
     {{ form_widget(eventForm.annuler) }}
   </div>
+    <div class="modal" id="modal">
+        <div class="modal__container">
+            <button type="button" id="close" data-bs-dismiss="modal" aria-label="Close">close</button>
+            <p>Ajouter un lieu</p>
+        </div>
+    </div>
   {{ form_end(eventForm) }}
+{% endblock %}
+
+{% block javascript %}
+
+<script src="{{ asset('js1/villeLocations.js') }}" defer></script>
+
 {% endblock %}

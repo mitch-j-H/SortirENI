@@ -39,6 +39,16 @@ class LocationRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllByCity(int $city):array
+    {
+        $queryBuilder = $this->createQueryBuilder('l');
+        $queryBuilder->andWhere("l.city= $city");
+        $queryBuilder->addOrderBy('l.name', 'ASC');
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Location[] Returns an array of Location objects
 //     */
