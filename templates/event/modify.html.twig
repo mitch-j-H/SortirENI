@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block header %}
-    Créer un événement
+    Modifier l'événement
 {% endblock %}
 
 {% block body %}
@@ -24,24 +24,34 @@
     {{ form_start(eventForm) }}
     <div class="form-main">
         <div class="column-left">
+            {{ form_label(eventForm.name) }}
             {{ form_widget(eventForm.name) }}
+            {{ form_label(eventForm.startsAt) }}
             {{ form_widget(eventForm.startsAt) }}
+            {{ form_label(eventForm.cutOffDate) }}
             {{ form_widget(eventForm.cutOffDate) }}
+            {{ form_label(eventForm.capacity) }}
             {{ form_widget(eventForm.capacity) }}
+            {{ form_label(eventForm.duration) }}
             {{ form_widget(eventForm.duration) }}
+            {{ form_label(eventForm.eventInfo) }}
             {{ form_widget(eventForm.eventInfo) }}
         </div>
         <div class="column-right">
+            {{ form_label(eventForm.campus) }}
             {{ form_widget(eventForm.campus) }}
-            {#      <p>Campus : {{ app.user.campus.name }}</p>#}
             <div class="city-box">
+                {{ form_label(eventForm.Location) }}
                 {{ form_widget(eventForm.Location) }}
-                {{ form_widget(eventForm.addLocale) }}
+                <button id = "showModal" class="bottom-button">Ajouter Lieu</button>
             </div>
+            {{ form_label(eventForm.city) }}
             {{ form_widget(eventForm.city) }}
-            <p>Rue : TODO ajx request info</p>
-            <p>Code Postal : TODO ajx request info</p>
+            <p id="rue"></p>
+            <p id="codePostal"></p>
+            {{ form_label(eventForm.latitude) }}
             {{ form_widget(eventForm.latitude) }}
+            {{ form_label(eventForm.longitude) }}
             {{ form_widget(eventForm.longitude) }}
         </div>
     </div>
@@ -49,7 +59,16 @@
         {#    <input type="submit" name="">#}
         {{ form_widget(eventForm.save) }}
         {{ form_widget(eventForm.publish) }}
+{#        <button class="bottom-button" ><a href="{{ path('event_removeEvent', {'id': event.id}) }}" title="Supprimer la sortie">Supprimer </a>#}{#</button>#}
+{#        <a href="{{ path('event_removeEvent', {'id': event.id}) }}" title="Supprimer la sortie">Supprimer </a>#}
         {{ form_widget(eventForm.annuler) }}
     </div>
     {{ form_end(eventForm) }}
 {% endblock %}
+
+{#{% block javascript %}#}
+
+{#<script src="{{ asset('js1/villeLocations.js') }}" defer></script>#}
+{#<script src="{{ asset('js1/villeLocations.js') }}" defer></script>#}
+
+{#{% endblock %}#}
