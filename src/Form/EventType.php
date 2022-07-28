@@ -99,10 +99,10 @@ class EventType extends AbstractType
                 'label' => 'Annuler',
                 'attr' => ['class' => 'bottom-button']
             ])
-            ->add('addLocale', SubmitType::class, [
-                'label' => 'Ajouter Lieu',
-                'attr' => ['class' => 'addCity']
-            ])
+//            ->add('addLocale', SubmitType::class, [
+//                'label' => 'Ajouter Lieu',
+//                'attr' => ['class' => 'addCity']
+//            ])
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'name',
