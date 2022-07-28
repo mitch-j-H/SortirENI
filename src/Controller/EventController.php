@@ -83,6 +83,7 @@
 
                 $entityManager->persist($event);
                 $entityManager->flush();
+                return $this->redirectToRoute('event_detail', ['id'=>$event->getid()]);
             }
 
             if ($eventForm->get('publish')->isClicked() && $eventForm->isValid()) {
@@ -90,12 +91,14 @@
 
                 $entityManager->persist($event);
                 $entityManager->flush();
+                return $this->redirectToRoute('event_detail', ['id'=>$event->getid()]);
             }
 
             if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
                 $entityManager->persist($event);
                 $entityManager->flush();
+                return $this->redirectToRoute('event_detail', ['id'=>$event->getid()]);
             }
 
             return $this->render('event/create.html.twig', [

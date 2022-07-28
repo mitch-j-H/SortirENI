@@ -1,7 +1,7 @@
 form {
     display: flex;
     flex-direction: column;
-    border: #333333 solid 2px;
+    border: #302269 solid 2px;
     border-radius: 10px;
 }
 
@@ -9,7 +9,7 @@ input, select, textarea {
     margin: 15px;
     font-size: 20px;
     border-radius:10px;
-    border: 1px solid #333333;
+    border: 1px solid #302269;
     transition: .3s border-color;
     background-color: inherit;
     color: inherit;
@@ -58,12 +58,6 @@ input, select, textarea {
     padding: 1.5rem;
     border-radius: 10px;
 }
-
-/*p {*/
-/*    line-height: 1.5rem;*/
-/*    !*border-top: 1px solid black;*!*/
-/*    padding: 1rem 0;*/
-/*}*/
 
 /*make modal visible*/
 .modal-visible {
