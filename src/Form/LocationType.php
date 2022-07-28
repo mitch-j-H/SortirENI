@@ -23,6 +23,7 @@ class LocationType extends AbstractType
             ->add('name', TextType::class, ['label'=>'Nom du lieu'])
             ->add('streetAddress', TextType::class, ['label'=>'Adresse'])
             ->add('latitude', NumberType::class)
+            ->add('longitude', NumberType::class)
             ->add('city', EntityType::class, [
                 'placeholder' => 'Choisir une ville',
                 'required' => false,
@@ -30,14 +31,16 @@ class LocationType extends AbstractType
                 'label'=> 'Lieu',
                 'choice_label' => 'name'
             ])
-            ->add('longitude', NumberType::class)
-            ->add('save', SubmitType::class, [
-                'attr' => ['class' => 'bottom-button']
-            ])
-            ->add('annuler', ResetType::class, [
-                'label' => 'Annuler',
-                'attr' => ['class' => 'bottom-button']
-            ])
+//            ->add('save', SubmitType::class, [
+//                'attr' => [
+//                    'class' => 'bottom-button',
+//                    'id' => 'newLocation'
+//                    ]
+//            ])
+//            ->add('annuler', ResetType::class, [
+//                'label' => 'Annuler',
+//                'attr' => ['class' => 'bottom-button']
+//            ])
         ;
     }
 

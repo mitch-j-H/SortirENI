@@ -16,6 +16,7 @@ window.onload = () => {
 
     //test modal
     test();
+    modalManage();
 
     //event listener on change of city re affiche the events
     city.addEventListener("change", function () {
@@ -78,8 +79,14 @@ function changeDetails(){
         //assigning values
         rue.innerText = "rue: " + selected.dataset.streetAddress;
         codePostal.innerText = "Code Postal: " + selected.dataset.postcode;
-        latitude.value= selected.dataset.latitude;
-        longitude.value = selected.dataset.longitude;
+        if(selected.dataset.latitude == "null" || selected.dataset.longitude == "null"){
+            latitude.value = "";
+            longitude.value = "";
+        } else {
+            latitude.value= selected.dataset.latitude;
+            longitude.value = selected.dataset.longitude;
+        }
+
     } else {
         rue.innerText = "";
         codePostal.innerText = "";
@@ -105,7 +112,14 @@ async function test(){
     })
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    btnSkip.addEventListener("click", () => {
+}
+
+function modalManage(){
+    let close = document.getElementById("close");
+    let modal = document.getElementById("modal");
+
+    close.addEventListener("click", function (){
         modal.classList.remove("modal-visible");
-    });
+    })
+
 }

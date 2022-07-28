@@ -61,7 +61,7 @@ class EventType extends AbstractType
                 'input_format' => 'dd:MM:YYYY hh:mm'
             ])
             ->add('cutOffDate', DateType::class, ['html5'=>true, 'widget'=> 'single_text', 'label'=>'Date limite d inscription :'])
-            ->add('duration', IntegerType::class, ['label'=>'Durée :'])
+            ->add('duration', IntegerType::class, ['label'=>'Durée (en minutes):'])
             ->add('capacity', NumberType::class, [
                 'required'=> true,
                 'label'=>'Nombre de places :',
@@ -75,10 +75,6 @@ class EventType extends AbstractType
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'name',
-//                'query_builder' => function (EntityRepository $repo){
-//                return $repo->createQueryBuilder('c')
-//                    ->orderBy(c.name, 'ASC');
-//                }
             ])
 
             ->add('Location', EntityType::class, [
@@ -88,20 +84,12 @@ class EventType extends AbstractType
                 'class' => Location::class,
                 'label'=> 'Lieu',
                 'choice_label' => 'name'
-//                'query_builder' => function (EntityRepository $repo){
-//                    return $repo->createQueryBuilder('l')
-//                        ->orderBy('l.name', 'ASC');
-//                }
             ])
             ->add('city', EntityType::class, [
                 'class' => City::class,
                 'mapped' => false,
                 'label'=> 'Ville',
                 'choice_label' => 'name',
-//                'query_builder' => function (EntityRepository $repo){
-//                return $repo->createQueryBuilder('v')
-//                    ->orderBy(v.name, 'ASC');
-//                }
                 ])
             ->add('latitude', NumberType::class, [
                 'mapped' => false,
@@ -127,24 +115,13 @@ class EventType extends AbstractType
                 'label' => 'Annuler',
                 'attr' => ['class' => 'bottom-button']
             ])
-//            ->add('addLocale', SubmitType::class, [
-//                'label' => 'Ajouter Lieu',
-//                'attr' => [
-//                    'class' => 'addCity',
-////                    'href' => '{{path ('')}}'
-//                    ],
+
+//            ->add('addLocation', LocationType::class, [
+//                'label'=>'Nom du lieu',
+//                'mapped' => false
 //            ])
-;
-//            ->add('NewLocation', CollectionType::class, [
-//                'entry_type' => LocationType::class,
-//                'entry_options' => ['label' => false],
-//                'allow_add' => true,
-//                'allow_delete' => true,
-//                'by_reference' => false
-////                'prototype' => true,
-////                'prototype_data' => 'New Tag Placeholder'
-//            ])
-            ;
+        ;
+//
 
             //adding event listeners
 //        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));

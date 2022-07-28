@@ -64,7 +64,7 @@
             $eventForm = $this->createForm(EventType::class, $event);
 
             $eventForm->handleRequest($request);
-            //changer par une methode create status
+
             $event->setStatus('Ouvert');
 
             if($eventForm->get('save')->isClicked() && $eventForm->isValid()){
@@ -175,25 +175,26 @@
 
             ]);
         }
-        #[Route ("/modal", name: "modal")]
-        public function modalController(EntityManagerInterface $entityManager, Request $request): Response
-        {
-            $location = new Location();
-
-            $locationForm = $this->createForm(LocationType::class, $location);
-
-            $locationForm->handleRequest($request);
-
-            if ($locationForm->isSubmitted() && $locationForm->isValid()) {
-                $entityManager->persist($location);
-                $entityManager->flush();
-            }
-            $this->addFlash('lieuAjouter', 'Lieu ajouter!');
-
-            return $this->render('event/modal.html.twig', [
-                'eventForm' => $locationForm->createView()
-            ]);
-        }
+//        #[Route ("/create_location", name: "create_location")]
+//        public function modalController(EntityManagerInterface $entityManager, Request $request, EventRepository $eventRepository,): Response
+//        {
+//            $location = new Location();
+//
+//            $locationForm = $this->createForm(LocationType::class, $location);
+//
+//            $locationForm->handleRequest($request);
+//
+//            if ($locationForm->isSubmitted() && $locationForm->isValid()) {
+//                $entityManager->persist($location);
+//                $entityManager->flush();
+//                return $this->redirectToRoute('event_create');
+//            }
+//            $this->addFlash('lieuAjouter', 'Lieu ajouter!');
+//
+//            return $this->render('event/modal.html.twig', [
+//                'locationForm' => $locationForm->createView()
+//            ]);
+//        }
 
 
 
