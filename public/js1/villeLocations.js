@@ -1,5 +1,4 @@
 window.onload = () => {
-
     //onload clear the list and the choisir un ville option
     let thingo = document.querySelector("#event_Location");
     thingo.innerHTML = "";
