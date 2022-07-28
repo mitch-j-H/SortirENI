@@ -23,7 +23,8 @@
 {#      <p>Campus : {{ app.user.campus.name }}</p>#}
       <div class="city-box">
         {{ form_widget(eventForm.Location) }}
-        {{ form_widget(eventForm.addLocale) }}
+{#        {{ form_widget(eventForm.addLocale, {'href' : "{{ path('event/modal') }}" }) }}#}
+        <button id = "showModal">Ajouter Lieu</button>
       </div>
       {{ form_widget(eventForm.city) }}
       <p id="rue"></p>
@@ -41,6 +42,16 @@
   {{ form_end(eventForm) }}
 {% endblock %}
 
+{% block modal %}
+  <div class="modal" id="modal">
+    <div class="modal__container">
+      {{path('event_modal') }}
+    </div>
+  </div>
+{% endblock %}
+
 {% block javascript %}
+{#<script src="{{ asset('js1/villeLocations.js') }}" defer></script>#}
     <script src="{{ asset('js1/villeLocations.js') }}" defer></script>
+{#    <script src="{{ asset('js1/modal.js') }}" defer></script>#}
 {% endblock %}

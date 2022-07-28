@@ -127,16 +127,22 @@ class EventType extends AbstractType
                 'label' => 'Annuler',
                 'attr' => ['class' => 'bottom-button']
             ])
-            ->add('addLocale', SubmitType::class, [
-                'label' => 'Ajouter Lieu',
-                'attr' => ['class' => 'addCity']
-            ])
+//            ->add('addLocale', SubmitType::class, [
+//                'label' => 'Ajouter Lieu',
+//                'attr' => [
+//                    'class' => 'addCity',
+////                    'href' => '{{path ('')}}'
+//                    ],
+//            ])
+;
 //            ->add('NewLocation', CollectionType::class, [
 //                'entry_type' => LocationType::class,
 //                'entry_options' => ['label' => false],
 //                'allow_add' => true,
 //                'allow_delete' => true,
 //                'by_reference' => false
+////                'prototype' => true,
+////                'prototype_data' => 'New Tag Placeholder'
 //            ])
             ;
 

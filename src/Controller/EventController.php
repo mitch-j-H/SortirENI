@@ -6,8 +6,10 @@
     use App\Entity\Reason;
     use App\Form\CancelEventType;
     use App\Form\EventType;
+    use App\Form\LocationType;
     use App\Repository\EventRepository;
     use Doctrine\ORM\EntityManagerInterface;
+    use phpDocumentor\Reflection\Location;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
@@ -173,6 +175,26 @@
 
             ]);
         }
+        #[Route ("/modal", name: "modal")]
+        public function modalController(EntityManagerInterface $entityManager, Request $request): Response
+        {
+            $location = new Location();
+
+            $locationForm = $this->createForm(LocationType::class, $location);
+
+            $locationForm->handleRequest($request);
+
+            if ($locationForm->isSubmitted() && $locationForm->isValid()) {
+                $entityManager->persist($location);
+                $entityManager->flush();
+            }
+            $this->addFlash('lieuAjouter', 'Lieu ajouter!');
+
+            return $this->render('event/modal.html.twig', [
+                'eventForm' => $locationForm->createView()
+            ]);
+        }
+
 
 
         /*   public function updateStatusFromDateOfTheDayAndAttendence(Event $event){

@@ -36,3 +36,75 @@ input, select, textarea {
     gap: 12rem;
     margin: 15px;
 }
+
+/*test modal setting*/
+
+/**,*/
+/**::before,*/
+/**::after {*/
+/*    box-sizing: border-box;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
+
+/*body {*/
+/*    font-family: "Mukta", sans-serif;*/
+/*    color: black;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 100vh;*/
+/*}*/
+
+.modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: 250ms opacity ease-in;
+}
+
+.modal__container {
+    background-color: white;
+    width: 26rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+/*p {*/
+/*    line-height: 1.5rem;*/
+/*    !*border-top: 1px solid black;*!*/
+/*    padding: 1rem 0;*/
+/*}*/
+
+/*make modal visible*/
+  .modal-visible {
+       opacity: 1;
+       pointer-events: auto;
+   }
+
+/*button {*/
+/*    font-family: inherit;*/
+/*    padding: 0.4rem 0.8rem;*/
+/*    font-size: 1rem;*/
+/*    cursor: pointer;*/
+/*    border: 1px solid $clr-primary;*/
+/*    border-radius: $radius;*/
+/*}*/
+
+/*.btn-primary {*/
+/*    background-color: $clr-primary;*/
+/*    color: white;*/
+/*}*/
+
+/*.btn-secondary {*/
+/*    background-color: transparent;*/
+/*    color: $clr-primary;*/
+/*}*/
