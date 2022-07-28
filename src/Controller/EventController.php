@@ -12,6 +12,7 @@
     use App\Services\AvailablePlacesInEvent;
     use App\Services\UpdateStatus;
     use Doctrine\ORM\EntityManagerInterface;
+    use Doctrine\ORM\EntityRepository;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +30,6 @@
             $dateOfTheDay = new \DateTime();
 
             $updateStatus->updateStatus($eventRepository);
-
 
             $EventDTO = new EventDTO();
 
@@ -51,7 +51,6 @@
         {
             $event = $eventRepository->find($id);
 
-
             //Nombre d'inscrits
             $particicipants = $event->getEventAttendence()->count();
             //capacité
@@ -70,7 +69,6 @@
         #[Route('/create', name: 'create')]
         public function create(Request $request, EntityManagerInterface $entityManager): Response
         {
-
             $event = new Event();
 
             $event->setOrganiser($this->getUser());
@@ -80,9 +78,8 @@
             $eventForm->handleRequest($request);
             //changer par une methode create status fonction du bouton de validation
             $event->setStatus('Ouverte');
-
             if ($eventForm->get('save')->isClicked() && $eventForm->isValid()) {
-                $event->setStatus('Créee');
+                $event->setStatus('En création');
 
                 $entityManager->persist($event);
                 $entityManager->flush();
@@ -160,10 +157,12 @@
             $CancelEventForm->handleRequest($request);
 
             if ($CancelEventForm->isSubmitted() && $CancelEventForm->isValid()) {
-
+                $event->setStatus('Annulée');
                 $event->setReason($reason);
                 $entityManager->persist($reason);
                 $entityManager->flush();
+                $this->addFlash('cancelSuccess', 'Votre sortie est bien annulée.');
+                return $this->redirectToRoute('event_detail',['id'=>$event->getId()]);
 
             }
             return $this->render('event/cancel.html.twig', [
@@ -189,7 +188,8 @@
             //places restantes
             $availablePlaces = $capacityEvent - $particicipants;
 
-            if ($availablePlaces = 0) {
+
+            if ($capacityEvent-$particicipants == 0) {
                 $event->setStatus('Cloturée');
             }
 
@@ -205,9 +205,9 @@
             ]);
         }
 
-        /**
-         * @Route ("/removeParticipate/{id}", name="removeParticipate")
-         */
+
+         #[Route ("/removeParticipate/{id}", name:"removeParticipate")]
+
         public function leaveEvent(int $id, EventRepository $eventRepository, EntityManagerInterface $entityManager): Response
         {
             $event = $eventRepository->find($id);
@@ -224,7 +224,7 @@
             //places restantes
             $availablePlaces = $capacityEvent - $particicipants;
 
-           if ($availablePlaces > 0) {
+            if ($availablePlaces > 0) {
                 $event->setStatus('Ouverte');
             }
             $entityManager->persist($event);
@@ -237,6 +237,23 @@
                 'availablePlaces' => $availablePlaces
 
             ]);
+        }
+
+
+          #[Route ("/removeEvent/{id}", name:"removeEvent")]
+
+        public function removeEvent($id, EntityManagerInterface $entityManager)
+        {
+
+            $event = $entityManager->getRepository(Event::class)->find($id);
+            $organiser = $event->getOrganiser();
+
+            if ($this->getUser() == $organiser) {
+                $entityManager->remove($event);
+                $entityManager->flush();
+                $this->addFlash('DeleteEvent', 'Votre sortie a bien été supprimée.');
+            }
+            return $this->redirectToRoute('event_list');
         }
 
     }

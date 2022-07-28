@@ -95,11 +95,12 @@ class ProfileType extends AbstractType
                 ]
             ])
             ->add('password', RepeatedType::class, [
-                'required' => false,
+                'mapped' => false,
                 'type' => PasswordType::class,
                 'options' => ['attr' => ['class' => 'password-field']],
-                'first_options' => ['label' => 'Mot de passe : ', 'attr' => ['maxlength' => 50, 'required' => false]],
-                'second_options' => ['label' => 'Confirmation : ', 'attr' => ['maxlength' => 50, 'required' => false]]
+                'first_options' => ['label' => 'Mot de passe : ', 'attr' => ['maxlength' => 50]],
+                'second_options' => ['label' => 'Confirmation : ', 'attr' => ['maxlength' => 50]],
+                'required' => false
             ])
             ->add('image', FileType::class, [
                 'required' => false,
